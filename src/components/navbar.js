@@ -25,8 +25,8 @@ const Navbar = () => {
                 <li className="item button"><a href="/login">Login</a></li>
                 <li className="item button secondary"><a href="/register">Sign Up</a></li>
                 <li className="toggle" onClick={hamburgerIconHandler}>
-									<span className="bars"></span>
-								</li>
+					<span className="bars"></span>
+				</li>
             </ul>
         </nav>
     )

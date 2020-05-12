@@ -8,7 +8,6 @@ import Login from "./components/auth/login"
 import Register from "./components/auth/register"
 import About from "./components/pages/about"
 import Legal from "./components/pages/legal"
-import Navbar from './components/navbar';
 
 function App() {
   return (

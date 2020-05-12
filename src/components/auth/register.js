@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import axios from "axios"
 
-const Register = () => {
+const RegisterUser = () => {
 
     const [ credentials, setCredentials ] = useState({
         email: '',
@@ -109,4 +109,4 @@ const Register = () => {
 
 }
 
-export default Register
+export default RegisterUser
