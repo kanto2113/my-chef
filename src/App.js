@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import './App.css';
 
+import Navbar from "./components/navbar"
 import Home from "./components/pages/home"
 import Login from "./components/auth/login"
 import Register from "./components/auth/register"
@@ -11,6 +12,7 @@ import Legal from "./components/pages/legal"
 function App() {
   return (
     <Router>
+      <Navbar></Navbar>
         <Switch>
           <Route exact path="/">
             <Home />
