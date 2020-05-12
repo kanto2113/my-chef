@@ -7,32 +7,8 @@
     <link rel="icon" href="./img/food-and-restaurant.png" />
     <link rel="stylesheet" href="index.css" />
     <title>MyChef</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>
-    <script>
-      $(function() {
-        $(".toggle").on("click", function(){
-
-          if($(".item").hasClass("active")){
-            $(".item").removeClass("active")
-          }else{
-            $(".item").addClass("active")
-          }
-        })
-      })
-    </script>
   </head>
   <body>
-    <nav>
-      <ul class="menu">
-        <li class="logo"><a href="/">HomeCooked</a></li>
-        <li class="item"><a href="/">Home</a></li>
-        <li class="item"><a href="/about">About</a></li>
-        <li class="item"><a href="/legal">Legal</a></li>
-        <li class="item button"><a href="/login">Login</a></li>
-        <li class="item button secondary"><a href="/register">Sign Up</a></li>
-        <li class="toggle"><span class="bars"></span></li>
-      </ul>
-    </nav>
     <div id="root"></div>
   </body>
 </html>

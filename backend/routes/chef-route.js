@@ -1,10 +1,10 @@
 const router = require('express').Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const auth = require('../middleware/userAuth')
-let User = require('../models/user-model')
+const auth = require('../middleware/chefAuth')
+let Chef = require('../models/chef-model')
 
-// register new user
+// register new chef
 
 router.post("/register", async (req, res) => {
     try {
@@ -25,8 +25,8 @@ router.post("/register", async (req, res) => {
                 .status(400)
                 .json({ msg: "Enter the same password twice for verification." })
 
-        const existingUser = await User.findOne({email: email})
-        if (existingUser)
+        const existingChef = await Chef.findOne({email: email})
+        if (existingChef)
             return res
                 .status(400)
                 .json({ msg: "Account with this email already exists" })
@@ -38,14 +38,14 @@ router.post("/register", async (req, res) => {
         console.log(passwordHash)
         console.log(email)
 
-        const newUser = new User({
+        const newChef = new Chef({
             email,
             password: passwordHash,
             displayName
         })
 
-        const savedUser = await newUser.save()
-        res.json(savedUser)
+        const savedChef = await newChef.save()
+        res.json(savedChef)
 
     } catch(err) {
         res.status(500).json({ error : err.message })
@@ -65,25 +65,25 @@ router.post('/login', async (req, res) => {
                 .status(400)
                 .json({ msg: "Not all fields have been entered." })
 
-        const user = await User.findOne({ email: email })
-        if (!user)
+        const chef = await Chef.findOne({ email: email })
+        if (!chef)
             return res
                 .status(400)
                 .json({ msg: "No account with this email has been registered." })
 
-        const isMatch =  await bcrypt.compare(password, user.password)
+        const isMatch =  await bcrypt.compare(password, chef.password)
         if (!isMatch)
             return res
                 .status(400)
                 .json({ msg: "Invalid Credentials" })
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
+        const token = jwt.sign({ id: chef._id }, process.env.JWT_SECRET)
         res.json({
             token,
-            user: {
-                id: user._id,
-                displayName: user.displayName,
-                email: user.email,
+            chef: {
+                id: chef._id,
+                displayName: chef.displayName,
+                email: chef.email,
             }
         })
         
@@ -92,12 +92,12 @@ router.post('/login', async (req, res) => {
     }
 })
 
-// delete user account
+// delete chef account
 
 router.delete("/delete", auth, async ( req, res ) => {
     try {
-        const deletedUser = await User.findByIdAndDelete(req.user)
-        res.json(deletedUser)
+        const deletedChef = await Chef.findByIdAndDelete(req.chef)
+        res.json(deletedChef)
     }catch(err) {
         res.status(500).json({ error : err.message })
     }
@@ -113,8 +113,8 @@ router.post("/tokenIsValid", async ( req, res ) => {
         const verified = jwt.verify(token, process.env.JWT_SECRET)
         if(!verified) return res.json(false)
 
-        const user = await User.findById(verified.id)
-        if(!user) return res.json(false)
+        const chef = await Chef.findById(verified.id)
+        if(!chef) return res.json(false)
 
         return res.json(true)
         
