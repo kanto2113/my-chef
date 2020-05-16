@@ -1,11 +1,12 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose")
 
 const Schema = mongoose.Schema
 
-const chefSchema = new Schema ({
-        email: { type: String, required: true, unique: true },
-        password: { type: String, required: true, minlength: 5 },
-        displayName: { type: String }
+const chefSchema = new Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true, minlength: 5 },
+  profilePicture: { type: String },
 })
 
-module.exports = Chef = mongoose.model('chef', chefSchema)
+module.exports = Chef = mongoose.model("chef", chefSchema)

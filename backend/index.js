@@ -1,6 +1,7 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const cors = require("cors")
+const AWS = require("aws-sdk")
 require("dotenv").config()
 
 // set up express
@@ -28,3 +29,14 @@ mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {
 
 app.use('/users', require('./routes/user-route'))
 app.use('/chefs', require('./routes/chef-route'))
+app.use('/api', require('./routes/aws-route'))
+
+// set up aws-s3 bucket
+
+AWS.config.getCredentials(function(err) {
+  if (err) console.log(err.stack)
+  else {
+    console.log("Access key:", AWS.config.credentials.accessKeyId)
+    console.log("Secret access key:", AWS.config.credentials.secretAccessKey)
+  }
+})

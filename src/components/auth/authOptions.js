@@ -10,8 +10,8 @@ const AuthOptions = () => {
 
     return (
         <div>
-            <button onClick={register} className="nav-button">Register</button>
-            <button onClick={login} className="nav-button">Log in</button>
+            <button className="item button" onClick={register} className="nav-button">Register</button>
+            <button className="item button secondary" onClick={login} className="nav-button">Log in</button>
         </div>
     )
 
