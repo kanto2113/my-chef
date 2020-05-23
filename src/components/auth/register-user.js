@@ -61,9 +61,10 @@ const RegisterUser = () => {
   }
 
   return (
-    <div className="app-container">
-      <div className="register-input-parent">
-        Register New User
+      <div className="register-form-parent">
+        <div className="register-name">
+          Create New User Account
+        </div>
         <div>
           <input
             className="register-input"
@@ -108,11 +109,14 @@ const RegisterUser = () => {
             placeholder="Display Name"
           />
         </div>
-        <button onClick={onSubmit}>Submit</button>
-        <input type="checkbox" onClick={showPassword} />
-        Show Password
+        <div className="register-submit">
+          <button onClick={onSubmit}>Submit</button>
+          <div>  
+            <input type="checkbox" onClick={showPassword} />
+            Show Password
+            </div>
+        </div>
       </div>
-    </div>
   )
 }
 

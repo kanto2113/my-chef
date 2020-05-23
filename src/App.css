@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap');
 
+/* Nav Bar */
+
 *{
-    box-sizing: border-box;
     padding: 0;
     margin: 0;
 }
@@ -10,8 +11,8 @@ body{
     font-family: 'Open Sans', sans-serif;
 }
 nav{
-    background: #222;
-    padding: 5px 20px;   
+    background: black;
+    padding: 5px 20px;
 }
 ul{
     list-style-type: none;
@@ -24,6 +25,7 @@ a:hover{
     text-decoration: underline;
 }
 .menu li{
+    list-style-type: circle;
     font-size: 16px;
     padding: 15px 5px;
 }
@@ -34,8 +36,14 @@ a:hover{
     font-size: 20px;
     width: fit-content;
 }
-.button.secondary {
+.nav-button.secondary {
     border-bottom: 1px #444 solid;
+}
+.bullet {
+    background: #aaa9ad;
+    border-radius: 50%;
+    height: 0px;
+    width: 8px;
 }
 
 
@@ -51,7 +59,7 @@ a:hover{
     order: 1;
 }
 
-.item.button {
+.item.nav-button {
     order: 2;
 
 }
@@ -99,7 +107,7 @@ a:hover{
     .logo {
         flex:1;
     }
-    .item.button {
+    .item.nav-button {
         width: auto;
         order: 1;
         display: block;
@@ -107,28 +115,31 @@ a:hover{
     .toggle {
         order: 2;
     }
-    .button.secondary {
+    .nav-button.secondary {
         border: 0;
     }
-    .button a {
+    .nav-button a {
+        color: black;
         text-decoration: none;
         padding: 7px 15px;
-        background: teal;
-        border: 1px solid #006d6d;
-        border-radius: 50em;
+        background: #aaa9ad;
+        border: 2px solid #D3D3D3;
+        border-bottom-left-radius: 7px;
+        border-bottom-right-radius: 7px;
     }
-    .button.secondary a {
-        background: transparent;
+    .nav-button.secondary a {
+        background: #C0C0C0;
+        border: 2px solid #aaa9ad;
     }
-    .button a:hover{
+    .nav-button a:hover{
         transition: all .25s;
     }
-    .button:not(.secondary) a:hover{
-        background: #006d6d;
-        border-color: #005959;
+    .nav-button:not(.secondary) a:hover{
+        background: #D3D3D3;
+        border-color: #aaa9ad;
     }
-    .button.secondary a:hover {
-        color: #ddd;
+    .nav-button.secondary a:hover {
+        background: #D3D3D3;
     }
 }
 
@@ -149,15 +160,42 @@ a:hover{
     .item {
         order: 1;
     }
-    .button {
+    .nav-button {
         order: 2;
     }
     .menu li{
         padding: 15px 10px;
     }
-    .menu li.button {
+    .menu li.nav-button {
         padding-right: 0;
     }
+}
+
+/* Banner */
+
+.banner-text {
+    position: relative;
+    z-index: 1;
+    height: 150px;
+    text-align: center;
+    font-size: 38px;
+    font-weight: 900;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: white;
+    
+}
+
+.banner-image {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: url('https://i.imgur.com/247dCWb.jpg');
+    opacity: .7;
+    width: 100%;
+    height: 100%;
 }
 
 /* Chef List Container */
@@ -166,7 +204,7 @@ a:hover{
     display: flex;
     flex-direction: row;
     position: absolute;
-    top: 250px;
+    top: 280px;
     left: margin;
     padding: 0 20px;
 }
@@ -218,10 +256,26 @@ a:hover{
     display: flexbox;
     flex-direction: column;
     text-align: center;
+    width: 240px;
+    height: 200px;
+    position: relative;
+    left: 50%;
+    margin-left: -120px;
+    padding-top: 100px;
+}
+
+.register-name {
+    font-weight: 600;
+    padding-bottom: 30px;
 }
 
 .register-input {
     width: 238px;
+}
+
+.register-submit {
+    display:flex;
+    justify-content: space-between;
 }
 
 .register-input-file {

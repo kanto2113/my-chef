@@ -10,8 +10,8 @@ const AuthOptions = () => {
 
     return (
         <ul className="menu">
-            <li className="item button"><a href="/login">Login</a></li>
-            <li className="item button secondary"><a href="/register">Sign Up</a></li>
+            <li className="item nav-button"><a href="/login">Login</a></li>
+            <li className="item nav-button"><a href="/register">Sign Up</a></li>
         </ul>
     )
 

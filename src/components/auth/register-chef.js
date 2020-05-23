@@ -99,7 +99,9 @@ const RegisterChef = () => {
 
   return (
     <div className="register-form-parent">
-      RegisterChef
+      <div className="register-name">
+        Create New Chef Account
+      </div>
       <div>
         <input
           className="register-input"
@@ -121,6 +123,7 @@ const RegisterChef = () => {
       </div>
       <div>
         <input
+          className="register-input"
           value={newChef.email}
           onChange={(e) => {
             emailInputHandler(e)
@@ -130,6 +133,7 @@ const RegisterChef = () => {
       </div>
       <div>
         <input
+          className="register-input"
           type="password"
           id="myInput"
           value={newChef.password}
@@ -141,6 +145,7 @@ const RegisterChef = () => {
       </div>
       <div>
         <input
+          className="register-input"
           type="password"
           id="myInput2"
           value={newChef.passwordCheck}
@@ -150,10 +155,12 @@ const RegisterChef = () => {
           placeholder="Re-Type Password"
         />
       </div>
-      <div>
+      <div className="register-submit">
         <button onClick={onSubmit}>Submit</button>
-        <input type="checkbox" onClick={showPassword} />
-        Show Password
+        <div>
+          <input type="checkbox" onClick={showPassword} />
+          Show Password
+        </div>
       </div>
     </div>
   )
