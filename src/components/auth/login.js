@@ -38,9 +38,6 @@ const Login = (props) => {
       axios
         .post("http://localhost:5000/users/login", loginCreds)
         .then((res) => console.log(res.data))
-
-
-//set context with res.user
     
     window.location = "/"
     }

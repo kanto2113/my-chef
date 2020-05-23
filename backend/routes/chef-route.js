@@ -112,4 +112,14 @@ router.post("/tokenIsValid", async (req, res) => {
   }
 })
 
+// get chef id & name
+
+router.get("/", auth, async (req, res) => {
+  const chef = await Chef.findById(req.chef)
+  res.json({
+      name: chef.name,
+      id: chef._id,
+  })
+})
+
 module.exports = router

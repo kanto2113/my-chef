@@ -9,10 +9,10 @@ const AuthOptions = () => {
     const login = () => history.push("/login")
 
     return (
-        <div>
-            <button className="item button" onClick={register} className="nav-button">Register</button>
-            <button className="item button secondary" onClick={login} className="nav-button">Log in</button>
-        </div>
+        <ul className="menu">
+            <li className="item button"><a href="/login">Login</a></li>
+            <li className="item button secondary"><a href="/register">Sign Up</a></li>
+        </ul>
     )
 
 }

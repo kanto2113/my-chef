@@ -1,8 +1,12 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const cors = require("cors")
+const fileUpload = require("express-fileupload")
 const AWS = require("aws-sdk")
+const router = express.Router()
+const bodyParser = require("body-parser")
 require("dotenv").config()
+
 
 // set up express
 
@@ -25,18 +29,31 @@ mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {
     console.log("MongoDB connection established.")
 })
 
+// set up file-upload
+
+app.use(fileUpload())
+
+
 // set up routes
 
 app.use('/users', require('./routes/user-route'))
 app.use('/chefs', require('./routes/chef-route'))
-app.use('/api', require('./routes/aws-route'))
+app.use('/profile', require('./routes/chef-profile-route'))
+require("./routes/aws-route")(app)
+app.use('/services', require('./routes/services-route'))
+
+// set up bodyParser
+
+// app.use(bodyParser.json())
+// app.use(bodyParser.urlencoded({extended: true}))
+
 
 // set up aws-s3 bucket
 
 AWS.config.getCredentials(function(err) {
   if (err) console.log(err.stack)
   else {
-    console.log("Access key:", AWS.config.credentials.accessKeyId)
-    console.log("Secret access key:", AWS.config.credentials.secretAccessKey)
+    console.log("aws-s3 Access key:", AWS.config.credentials.accessKeyId)
+    console.log("aws-s3 Secret access key:", AWS.config.credentials.secretAccessKey)
   }
 })

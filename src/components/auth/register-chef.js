@@ -17,24 +17,23 @@ const RegisterChef = () => {
     setNewChef(cloneNewChef)
   }
 
-  // const newChefProfilePictureInputHandler = async () => {
-  //   const formData = new FormData()
-  //   formData.append("image", inputRef.current.files[0])
+  const newChefProfilePictureInputHandler = async () => {
+    const formData = new FormData()
+    formData.append("image", inputRef.current.files[0])
 
-  //   let pictureResponse = await axios.post(
-  //     "http://localhost:5000/api/chef-profile-picture",
-  //     { params: { chefProfilePicture: formData } }
-  //   )
+    for (var pair of formData.entries()) {
+      console.log("formData", pair[1])
+    }
 
-  //   console.log(pictureResponse)
+    let pictureResponse = await axios.post(
+      "http://localhost:5000/api/chef-profile-picture",
+      formData
+    )
 
-  //   // let cloneNewChef = {...newChef, profilePicture: inputRef.current.files[0]}
-  //   // setNewChef(cloneNewChef)
-  // }
+    console.log("picture response", pictureResponse)
 
-  const newChefProfilePictureInputHandler = (e) => {
-    let cloneNewChef = {...newChef, profilePicture: e.target.value}
-    setNewChef(cloneNewChef)
+    // let cloneNewChef = {...newChef, profilePicture: inputRef.current.files[0]}
+    // setNewChef(cloneNewChef)
   }
 
   const emailInputHandler = (e) => {
@@ -99,7 +98,7 @@ const RegisterChef = () => {
   }
 
   return (
-    <div className="register-input-parent">
+    <div className="register-form-parent">
       RegisterChef
       <div>
         <input
@@ -111,29 +110,17 @@ const RegisterChef = () => {
           placeholder="Name"
         />
       </div>
-      {/* <div>
+      <div>
         <input
-          className="register-input"
           ref={inputRef}
           type="file"
           accept="image/*"
           onChange={newChefProfilePictureInputHandler}
           placeholder="Profile Picture URL"
         />
-      </div> */}
-      <div>
-        <input 
-          className="register-input"
-          onChange={(e)=>{
-            newChefProfilePictureInputHandler(e)
-          }}
-          value={newChef.profilePicture}
-          placeholder="Profile Picture URL"        
-        />
       </div>
       <div>
         <input
-          className="register-input"
           value={newChef.email}
           onChange={(e) => {
             emailInputHandler(e)
@@ -144,7 +131,6 @@ const RegisterChef = () => {
       <div>
         <input
           type="password"
-          className="register-input"
           id="myInput"
           value={newChef.password}
           onChange={(e) => {
@@ -156,7 +142,6 @@ const RegisterChef = () => {
       <div>
         <input
           type="password"
-          className="register-input"
           id="myInput2"
           value={newChef.passwordCheck}
           onChange={(e) => {

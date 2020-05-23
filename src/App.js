@@ -9,15 +9,21 @@ import Login from "./components/auth/login"
 import Register from "./components/auth/register-user"
 import About from "./components/pages/about"
 import NewChefContainer from "./components/auth/register-chef"
-import ChefProfile from "./components/pages/chef-profile"
+import ChefProfile from "./components/pages/chef-profile-page"
 
 import UserContext from "./context/UserContext"
+import ChefContext from "./context/ChefContext"
 
 const App = () => {
 
   const [ userData, setUserData ] = useState({
     token: undefined,
     user: undefined,
+  })
+
+  const [ chefData, setChefData ] = useState({
+    token: undefined,
+    chef: undefined,
   })
 
   useEffect(()=>{
@@ -27,18 +33,31 @@ const App = () => {
         localStorage.setItem("auth-token", "")
         token = ""
       }
-      const tokenRes = await axios.post(
+      const userTokenRes = await axios.post(
         "http://localhost:5000/users/tokenIsValid",
         null,
         { headers: { "x-auth-token": token } }
       )
-      if(tokenRes.data) {
+      if(userTokenRes.data) {
         const userRes = await axios.get("http://localhost:5000/users/", {
           headers: {"x-auth-token": token },
         })
         setUserData({
           token,
           user: userRes.data,
+        })}
+      const chefTokenRes = await axios.post(
+        "http://localhost:5000/chefs/tokenIsValid",
+        null,
+        { headers: { "x-auth-token": token } }
+      )
+      if(chefTokenRes.data) {
+        const chefRes = await axios.get("http://localhost:5000/chefs/", {
+          headers: {"x-auth-token": token },
+        })
+        setChefData({
+          token,
+          chef: chefRes.data,
         })
       }
     }
@@ -47,6 +66,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <ChefContext.Provider value={{ chefData, setChefData }}>
       <UserContext.Provider value={{ userData, setUserData }}>
         <Navbar></Navbar>
         <Switch>
@@ -70,6 +90,7 @@ const App = () => {
           </Route>
         </Switch>
         </UserContext.Provider>
+        </ChefContext.Provider>
     </BrowserRouter>
   )
 }

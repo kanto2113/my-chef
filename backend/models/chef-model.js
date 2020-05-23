@@ -9,4 +9,4 @@ const chefSchema = new Schema({
   profilePicture: { type: String },
 })
 
-module.exports = Chef = mongoose.model("chef", chefSchema)
+module.exports = mongoose.model("chef", chefSchema)
