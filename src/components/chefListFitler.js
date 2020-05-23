@@ -14,7 +14,6 @@ const ChefListFilter = () => {
       <option value="Sort By">Sort Chefs</option>
       <option value="Price: Low to High">Price: Low to High</option>
       <option value="Price: High to Low">Price: High to Low</option>
-
     </select>
   )
 }
