@@ -29,7 +29,13 @@ router.post("/register", async (req, res) => {
         if (existingUser)
             return res
                 .status(400)
-                .json({ msg: "Account with this email already exists" })
+                .json({ msg: "Account with this email already exists." })
+
+        const existingDisplayName = await User.findOne({displayName: displayName})
+        if (existingDisplayName)
+            return res
+                .status(400)
+                .json({ msg: "An account using this Display Name alreayd exists." })
 
         if (!displayName) displayName = email
 

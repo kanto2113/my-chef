@@ -1,21 +1,42 @@
-import React, { useEffect, useState } from "react"
-import axios from "axios"
+import React, { useState } from "react"
+import ChefServiceListContainer from "../chefServiceListContainer"
+
+export const ChefServiceContext = React.createContext()
 
 const ChefProfilePage = () => {
 
-  const [ chefProfile, setChefProfile ] = useState({
-    id: '',
-    name: '',
-    profilePicture: '',
-    bio: '',
-  })
-
-  useEffect(()=> {
-    const getChefName = async () => {
-      const chefNameRes = await axios.get("http://localhost:5000/chefs/")
-      setChefProfile({...chefProfile, name: chefNameRes.data.name})
+  const [ chefService, setChefService ] = useState([
+    {
+      title: "Pre-Cooked Meals Delivered",
+      description: "Choose from one of 5 delicious lunch or dinner options or 3 healty breakfasts.  Delivered to your doorstep when it is convenient for you.",
+      addons: "Additional services available upon request.",
+      cost: 15,
+    },{
+      title: "Fine Dining Quality Meals Delivered",
+      description: "Choose from one of 3 top tier meals.  Treat yo' self!",
+      addons: "Additional services available upon request.",
+      cost: 25,
+    },{
+      title: "Personal Chef",
+      description: "Choose from one of 3 top tier meals, cooked in your own kitchen live.",
+      addons: "Additional services available upon request.",
+      cost: 45,
     }
-  })
+  ])
+
+  // const [ chefProfile, setChefProfile ] = useState({
+  //   id: '',
+  //   name: '',
+  //   profilePicture: '',
+  //   bio: '',
+  // })
+
+  // useEffect(()=> {
+  //   const getChefName = async () => {
+  //     const chefNameRes = await axios.get("http://localhost:5000/chefs/")
+  //     setChefProfile({...chefProfile, name: chefNameRes.data.name})
+  //   }
+  // })
 
   // useEffect(()=>{
   //   const getChefProfile = async () => {
@@ -26,24 +47,32 @@ const ChefProfilePage = () => {
   // }, [])
 
   return (
-    <div>
-      <h1>
-        Chef Profile Page
-      </h1>
-        <div>
-          <img src="https://i.imgur.com/8HicAJg.png" width="100px" height="100px" alt=""></img>
+    <ChefServiceContext.Provider value={[chefService, setChefService]}>
+      <div className="background">
+        <div className="chef-profile">
+          <div className="profile-header">
+            <div className="profile-header-text-container">
+              <div className="profile-name">
+                Butch Powers
+              </div>
+              <div className="profile-location">
+                Berkeley, CA
+              </div>
+              <div className="profile-bio">
+                I kick ass and chew bubblegum, and i'm all out of bubblegum.
+              </div>
+            </div>
+            <div>
+              <img className="profile-chef-picture" src="https://i.imgur.com/8HicAJg.png" alt=""></img>
+            </div>
+          </div>  
         </div>
-        {chefProfile.name}
-        <div>
-          <textarea 
-            id="story"
-            name="story"
-            rows="3" cols="33">
-            placeholder="This is where you talk about what kind of food you can make, what experience you have, and your availability."
-          </textarea>
-        </div>
-        
-    </div>
+        <div className="chef-services">
+          <ChefServiceListContainer></ChefServiceListContainer>
+        </div> 
+      </div>
+    </ChefServiceContext.Provider>
+
   )
 }
 

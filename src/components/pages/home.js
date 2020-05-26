@@ -23,12 +23,13 @@ const Home = () => {
             bio: "I need to speak with your manager.",
             services: 17,
         },{
-            name:"Rick Roll",
+            name:"Rick Rolls",
             profilePicture: "https://i.imgur.com/mClCyA1.jpg",
             bio: "Never gonna give you up, never gonna let you down, never gonna run around and desert you.",
             services: 20,
         }
     ])
+
 
     return (
         <ChefListContext.Provider value={[chefList, setChefList]}>

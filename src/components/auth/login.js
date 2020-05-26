@@ -56,32 +56,36 @@ const Login = (props) => {
   }
 
   return (
-    <div>
-      <div>
+    <div className="login-form-parent">
+      <div className="login-title">
         Login
-        <div>
-          <input
-            value={credentials.email}
-            onChange={(e) => {
-              emailInputHandler(e)
-            }}
-            placeholder="Email Address"
-          />
-        </div>
-        <div>
-          <input
-            type="password"
-            id="myInput"
-            value={credentials.password}
-            onChange={(e) => {
-              passwordInputHandler(e)
-            }}
-            placeholder="Password"
-          />
-        </div>
+      </div>
+      <div className="login-input">
+        <input
+          value={credentials.email}
+          onChange={(e) => {
+            emailInputHandler(e)
+          }}
+          placeholder="Email Address"
+        />
+      </div>
+      <div className="login-input">
+        <input
+          type="password"
+          id="myInput"
+          value={credentials.password}
+          onChange={(e) => {
+            passwordInputHandler(e)
+          }}
+          placeholder="Password"
+        />
+      </div>
+      <input type="checkbox" onClick={showPassword} />  Show Password
+      <div className="login-submit">
         <button onClick={onSubmit}>Login</button>
-        <input type="checkbox" onClick={showPassword} />Show Password
-        <input type="checkbox" id="chefLogin" />Chef Login
+        <div>
+          <input type="checkbox" id="chefLogin" />Chef Login
+        </div>
       </div>
     </div>
   )

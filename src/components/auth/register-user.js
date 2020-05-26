@@ -62,8 +62,8 @@ const RegisterUser = () => {
 
   return (
       <div className="register-form-parent">
-        <div className="register-name">
-          Create New User Account
+        <div className="register-title">
+          Sign up to eat!
         </div>
         <div>
           <input

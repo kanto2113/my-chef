@@ -5,15 +5,23 @@ const ChefListFilter = () => {
 
   const [ chefList, setChefList ] = useContext(ChefListContext)
 
-  const selectionChange = () => {
+  const priceLowToHigh = () => {
+    let cloneChefList = [...chefList]
+    cloneChefList.sort((chefA, chefB) => chefA.services - chefB.services)
+    setChefList(cloneChefList)
+  }
 
+  const priceHighToLow = () => {
+    let cloneChefList = [...chefList]
+    cloneChefList.sort((chefA, chefB) => chefB.services - chefA.services)
+    setChefList(cloneChefList)
   }
 
   return (
-    <select id="sorting" onChange={selectionChange}>
-      <option value="Sort By">Sort Chefs</option>
-      <option value="Price: Low to High">Price: Low to High</option>
-      <option value="Price: High to Low">Price: High to Low</option>
+    <select id="sorting">
+      <option id="sortBy" value="Sort By">Sort Chefs</option>
+      <option id="priceLowToHigh" value="Price: Low to High" onClick={priceLowToHigh}>Price: Low to High</option>
+      <option id="priceHightoLow" value="Price: High to Low" onClick={priceHighToLow}>Price: High to Low</option>
     </select>
   )
 }

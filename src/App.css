@@ -45,6 +45,11 @@ a:hover{
     height: 0px;
     width: 8px;
 }
+.icon {
+    margin-bottom: 5px;
+    height: 70px;
+    width: 70px;
+}
 
 
 /* Mobile Menu */
@@ -55,6 +60,7 @@ a:hover{
     justify-content: space-between;
     align-items: center;
 }
+
 .toggle {
     order: 1;
 }
@@ -63,18 +69,22 @@ a:hover{
     order: 2;
 
 }
+
 .item {
     width: 100%;
     text-align: center;
     order: 3;
     display: none;
 }
+
 .item.active{
     display: block;
 }
+
 .toggle {
     cursor: pointer;
 }
+
 .bars {
     background: #999;
     display: inline-block;
@@ -82,6 +92,7 @@ a:hover{
     width: 18px;
     position: relative;
 }
+
 .bars::before,.bars::after {
     background: #999;
     content: "";
@@ -90,9 +101,11 @@ a:hover{
     width: 18px;
     position: absolute;
 }
+
 .bars::before {
     top: 5px;
 }
+
 .bars::after {
     top: -5px;
 }
@@ -124,8 +137,8 @@ a:hover{
         padding: 7px 15px;
         background: #aaa9ad;
         border: 2px solid #D3D3D3;
-        border-bottom-left-radius: 7px;
-        border-bottom-right-radius: 7px;
+        border-bottom-left-radius: 1px;
+        border-bottom-right-radius: 10px;
     }
     .nav-button.secondary a {
         background: #C0C0C0;
@@ -171,7 +184,8 @@ a:hover{
     }
 }
 
-/* Banner */
+
+/* Home Page Banner */
 
 .banner-text {
     position: relative;
@@ -198,7 +212,12 @@ a:hover{
     height: 100%;
 }
 
-/* Chef List Container */
+/* Gradient Default Background */
+
+.background {
+    background: linear-gradient(151.84deg, #FAFFFB 17.73%, rgba(253, 255, 254, 0.387504) 40.47%, rgba(255, 255, 255, 0) 77.08%), #BDFACF;}
+
+/* Chef Card List Container */
 
 .chef-list-container {
     display: flex;
@@ -209,6 +228,7 @@ a:hover{
     padding: 0 20px;
 }
 
+
 /* Chef Card Container */
 
 .chef-card-container {
@@ -217,7 +237,7 @@ a:hover{
     height: 300px;
     width: 225px;
     border-radius: 10px;
-    border-style: solid;
+    border: 1.5pt solid black;
 }
 
 .chef-card-header {
@@ -250,10 +270,11 @@ a:hover{
     bottom: 0px;
 }
 
-/* Register Accounts */
+
+/* Registration Forms */
 
 .register-form-parent {
-    display: flexbox;
+    display: flex;
     flex-direction: column;
     text-align: center;
     width: 240px;
@@ -264,7 +285,7 @@ a:hover{
     padding-top: 100px;
 }
 
-.register-name {
+.register-title {
     font-weight: 600;
     padding-bottom: 30px;
 }
@@ -278,6 +299,122 @@ a:hover{
     justify-content: space-between;
 }
 
-.register-input-file {
-    
+
+/* Login Form */
+
+.login-form-parent {
+    display: flexbox;
+    flex-direction: column;
+    text-align: center;
+    width: 150px;
+    height: 200px;
+    position: relative;
+    left: 50%;
+    margin-left: -75px;
+    padding-top: 100px;
+}
+
+.login-title {
+    font-weight: 600;
+    padding-bottom: 30px;
+}
+
+.login-input {
+    width: 150px;
+}
+
+.login-submit {
+    display:flex;
+    justify-content: space-between;
+}
+
+
+/* Chef Profie Page */
+
+.chef-profile {
+    padding: 50px 0px;
+    width: 750px;
+    position: relative;
+    left: 50%;
+    margin-left: -375px;
+
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.profile-header-text-container{
+    display:flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.profile-name {
+    font-size: 48px;
+    font-weight: 600;
+    padding: 30px 0 0 0;
+}
+
+.profile-location {
+    font-weight: 600;
+    padding: 0 0 30px 0;
+}
+
+.profile-bio {
+    font-weight: 300;
+}
+
+.profile-chef-picture {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 1.5pt solid black;
+}
+
+.chef-services {
+    padding: 20px 20px;
+}
+
+
+/* Chef Service Card */
+
+.chef-service-container {
+    width: 400px;
+    height: 200px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1px 2px 2px 2px;
+    background: white;
+}
+
+.chef-service-title {
+    font-weight: 600;
+    text-align: center;
+}
+
+.chef-service-description {
+    font-size: 16px;
+}
+
+.chef-service-addons {
+    font-weight: 300;
+}
+
+.chef-service-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/* Chef Service List */
+
+.chef-service-list {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 5px;
 }

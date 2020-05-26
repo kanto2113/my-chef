@@ -99,8 +99,8 @@ const RegisterChef = () => {
 
   return (
     <div className="register-form-parent">
-      <div className="register-name">
-        Create New Chef Account
+      <div className="register-title">
+        Chef Account Creation
       </div>
       <div>
         <input
