@@ -47,8 +47,8 @@ a:hover{
 }
 .icon {
     margin-bottom: 5px;
-    height: 70px;
-    width: 70px;
+    height: 50px;
+    width: 50px;
 }
 
 
@@ -177,7 +177,7 @@ a:hover{
         order: 2;
     }
     .menu li{
-        padding: 15px 10px;
+        padding: 5px 10px;
     }
     .menu li.nav-button {
         padding-right: 0;
@@ -212,10 +212,6 @@ a:hover{
     height: 100%;
 }
 
-/* Gradient Default Background */
-
-.background {
-    background: linear-gradient(151.84deg, #FAFFFB 17.73%, rgba(253, 255, 254, 0.387504) 40.47%, rgba(255, 255, 255, 0) 77.08%), #BDFACF;}
 
 /* Chef Card List Container */
 
@@ -247,7 +243,8 @@ a:hover{
 
 .chef-card-name {
     font-weight: 600;
-    padding: 20px 4px 0 4px;
+    padding: 4px;
+    text-align: center;
 }
  
 .chef-card-profile-picture {
@@ -274,8 +271,6 @@ a:hover{
 /* Registration Forms */
 
 .register-form-parent {
-    display: flex;
-    flex-direction: column;
     text-align: center;
     width: 240px;
     height: 200px;
@@ -292,6 +287,7 @@ a:hover{
 
 .register-input {
     width: 238px;
+    text-align: center;
 }
 
 .register-submit {
@@ -303,8 +299,6 @@ a:hover{
 /* Login Form */
 
 .login-form-parent {
-    display: flexbox;
-    flex-direction: column;
     text-align: center;
     width: 150px;
     height: 200px;
@@ -321,6 +315,7 @@ a:hover{
 
 .login-input {
     width: 150px;
+    text-align: center;
 }
 
 .login-submit {
@@ -388,8 +383,9 @@ a:hover{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 1px 2px 2px 2px;
+    padding: 10px;
     background: white;
+    border: 1px black solid;
 }
 
 .chef-service-title {
@@ -399,6 +395,10 @@ a:hover{
 
 .chef-service-description {
     font-size: 16px;
+}
+
+.chef-service-cost {
+    font-weight: 600;
 }
 
 .chef-service-addons {

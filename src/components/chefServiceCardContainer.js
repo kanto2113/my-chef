@@ -10,12 +10,14 @@ const ChefServiceCardContainer = (props) => {
         <div className="chef-service-description">
           {props.service.description}
         </div>
-        <div className="chef-service-addons">
-          {props.service.addons}
-        </div>
         <div className="chef-service-footer">
-          <div className="chef-service-cost">
-            ${props.service.cost} dollars per meal.
+          <div className="chef-service-footer">
+            <div className="chef-service-cost">
+              ${props.service.cost}
+            </div>
+            <div>
+              &nbsp;per meal.
+            </div>
           </div>
           <div className="chef-service-purchase-button">
             <button>Hire Butch</button>

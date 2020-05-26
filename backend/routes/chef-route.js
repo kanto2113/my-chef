@@ -8,11 +8,11 @@ let Chef = require("../models/chef-model")
 
 router.post("/register", async (req, res) => {
   try {
-    let { name, email, password, passwordCheck, profilePicture } = req.body
+    let { firstName, lastName, email, password, passwordCheck, profile } = req.body
 
     // validate
 
-    if (!name || !email || !password || !passwordCheck || !profilePicture)
+    if (!firstName || !lastName || !email || !password || !passwordCheck )
       return res.status(400).json({ msg: "Not all fields have been entered." })
     if (password.length < 5)
       return res.status(400).json({
@@ -35,10 +35,11 @@ router.post("/register", async (req, res) => {
     console.log(email)
 
     const newChef = new Chef({
-      name,
+      firstName,
+      lastName,
       email,
       password: passwordHash,
-      profilePicture,
+      profile
     })
 
     const savedChef = await newChef.save()
@@ -73,7 +74,7 @@ router.post("/login", async (req, res) => {
       token,
       chef: {
         id: chef._id,
-        name: chef.name,
+        name: chef.firstName,
         email: chef.email,
       },
     })
@@ -114,12 +115,22 @@ router.post("/tokenIsValid", async (req, res) => {
 
 // get chef id & name
 
-router.get("/", auth, async (req, res) => {
-  const chef = await Chef.findById(req.chef)
-  res.json({
-      name: chef.name,
-      id: chef._id,
+router.get("/:id", async (req, res) => {
+  console.log("ive hit the route")
+  try {
+  let chefRes = await Chef.findById(req.params.id)
+    .populate({
+      path:"profile",
+      populate: {
+        path:"services",
+        model: "service"
+    }
   })
+  console.log(chefRes)
+  res.send(chefRes)
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
 })
 
 module.exports = router

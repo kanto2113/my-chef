@@ -1,50 +1,31 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import ChefServiceListContainer from "../chefServiceListContainer"
+import axios from "axios"
 
 export const ChefServiceContext = React.createContext()
 
 const ChefProfilePage = () => {
 
-  const [ chefService, setChefService ] = useState([
-    {
-      title: "Pre-Cooked Meals Delivered",
-      description: "Choose from one of 5 delicious lunch or dinner options or 3 healty breakfasts.  Delivered to your doorstep when it is convenient for you.",
-      addons: "Additional services available upon request.",
-      cost: 15,
-    },{
-      title: "Fine Dining Quality Meals Delivered",
-      description: "Choose from one of 3 top tier meals.  Treat yo' self!",
-      addons: "Additional services available upon request.",
-      cost: 25,
-    },{
-      title: "Personal Chef",
-      description: "Choose from one of 3 top tier meals, cooked in your own kitchen live.",
-      addons: "Additional services available upon request.",
-      cost: 45,
+  const [ chefService, setChefService ] = useState([])
+
+  const [ chefProfile, setChefProfile ] = useState({
+    id: '',
+    firstName: '',
+    profilePicture: '',
+    bio: '',
+  })
+ 
+  useEffect(()=>{
+    let getChefProfile = async () => {
+      const profileRes = await axios.get("http://localhost:5000/chefs/5ecd9467f77f8d3e9054bcc0")
+      setChefService([...profileRes.data.profile[0].services])
+      setChefProfile({...profileRes.data})
+      console.log("profileRes", profileRes)
     }
-  ])
+    getChefProfile()
+  },[])
 
-  // const [ chefProfile, setChefProfile ] = useState({
-  //   id: '',
-  //   name: '',
-  //   profilePicture: '',
-  //   bio: '',
-  // })
-
-  // useEffect(()=> {
-  //   const getChefName = async () => {
-  //     const chefNameRes = await axios.get("http://localhost:5000/chefs/")
-  //     setChefProfile({...chefProfile, name: chefNameRes.data.name})
-  //   }
-  // })
-
-  // useEffect(()=>{
-  //   const getChefProfile = async () => {
-  //     const chefRes = await axios.get("http://localhost:5000/profile/5ec30071aff85c0bc4b7522b")
-  //     setChefProfile({...chefProfile, bio: chefRes.data.bio})
-  //   }
-  //   getChefProfile()
-  // }, [])
+  console.log("chef profile", chefProfile)
 
   return (
     <ChefServiceContext.Provider value={[chefService, setChefService]}>

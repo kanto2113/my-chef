@@ -5,15 +5,15 @@ let ChefProfile = require("../models/chef-profile-model")
 
 router.post("/", async (req, res) => {
   try {
-    let { _author, bio, dateCreated } = req.body
-
-    if ( !bio )
-      return res.status(400).json({ msg: "Not all fields have been entered." })
+    let { _author, locationCity, locationState, bio, profilePicture, services } = req.body
 
     const chefProfile = new ChefProfile({
       _author,
+      locationCity,
+      locationState,
       bio,
-      dateCreated,
+      profilePicture,
+      services
     })
 
     const savedChefProfile = await chefProfile.save()
@@ -23,10 +23,15 @@ router.post("/", async (req, res) => {
   }
 })
 
-router.get("/:id", (req, res) => {
-  ChefProfile.findById(req.params.id)
-      .then(chefProfile => res.json(chefProfile))
-      .catch(err => res.status(400).json('Error: ' + err))
+router.get("/:id", async (req, res) => {
+  try {
+  let chefProfileRes = await ChefProfile.findById(req.params.id).populate("services")
+  console.log(chefProfileRes)
+  res.send(chefProfileRes)
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
 })
+
 
 module.exports = router

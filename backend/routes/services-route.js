@@ -3,15 +3,13 @@ let Service = require("../models/service-model")
 
 router.post("/", async (req, res) => {
   try{
-    let { _author, mealCost, description } = req.body 
-
-    if ( !_author, !mealCost, !description )
-      return res.status(400).json({ msg: "Not all fields have been entered." })
+    let { _author, title, description, cost } = req.body 
 
     const service = new Service({
       _author,
-      mealCost,
+      title,
       description,
+      cost,
     })
 
     const savedService = await service.save()

@@ -5,35 +5,21 @@ const RegisterChef = () => {
   let inputRef = useRef()
 
   const [newChef, setNewChef] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     passwordCheck: "",
-    profilePicture: ""
   })
 
-  const newChefNameInputHandler = (e) => {
-    let cloneNewChef = { ...newChef, name: e.target.value }
+  const newChefFirstNameInputHandler = (e) => {
+    let cloneNewChef = { ...newChef, firstName: e.target.value }
     setNewChef(cloneNewChef)
   }
 
-  const newChefProfilePictureInputHandler = async () => {
-    const formData = new FormData()
-    formData.append("image", inputRef.current.files[0])
-
-    for (var pair of formData.entries()) {
-      console.log("formData", pair[1])
-    }
-
-    let pictureResponse = await axios.post(
-      "http://localhost:5000/api/chef-profile-picture",
-      formData
-    )
-
-    console.log("picture response", pictureResponse)
-
-    // let cloneNewChef = {...newChef, profilePicture: inputRef.current.files[0]}
-    // setNewChef(cloneNewChef)
+  const newChefLastNameInputHandler = (e) => {
+    let cloneNewChef = { ...newChef, lastName: e.target.value }
+    setNewChef(cloneNewChef)
   }
 
   const emailInputHandler = (e) => {
@@ -106,19 +92,20 @@ const RegisterChef = () => {
         <input
           className="register-input"
           onChange={(e) => {
-            newChefNameInputHandler(e)
+            newChefFirstNameInputHandler(e)
           }}
-          value={newChef.name}
-          placeholder="Name"
+          value={newChef.firstName}
+          placeholder="First Name"
         />
       </div>
       <div>
         <input
-          ref={inputRef}
-          type="file"
-          accept="image/*"
-          onChange={newChefProfilePictureInputHandler}
-          placeholder="Profile Picture URL"
+          className="register-input"
+          onChange={(e) => {
+            newChefLastNameInputHandler(e)
+          }}
+          value={newChef.lastName}
+          placeholder="Last Name"
         />
       </div>
       <div>
@@ -167,3 +154,38 @@ const RegisterChef = () => {
 }
 
 export default RegisterChef
+
+
+
+
+
+
+
+
+      // const newChefProfilePictureInputHandler = async () => {
+      //   const formData = new FormData()
+      //   formData.append("image", inputRef.current.files[0])
+
+      //   for (var pair of formData.entries()) {
+      //     console.log("formData", pair[1])
+      //   }
+
+      //   let pictureResponse = await axios.post(
+      //     "http://localhost:5000/api/chef-profile-picture",
+      //     formData
+      //   )
+
+      //   console.log("picture response", pictureResponse)
+
+        // let cloneNewChef = {...newChef, profilePicture: inputRef.current.files[0]}
+        // setNewChef(cloneNewChef)
+      
+      {/* <div>
+        <input
+          ref={inputRef}
+          type="file"
+          accept="image/*"
+          onChange={newChefProfilePictureInputHandler}
+          placeholder="Profile Picture URL"
+        />
+      </div> */}

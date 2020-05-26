@@ -39,8 +39,9 @@ app.use(fileUpload())
 app.use('/users', require('./routes/user-route'))
 app.use('/chefs', require('./routes/chef-route'))
 app.use('/profile', require('./routes/chef-profile-route'))
-require("./routes/aws-route")(app)
 app.use('/services', require('./routes/services-route'))
+
+require("./routes/aws-route")(app)
 
 // set up bodyParser
 
