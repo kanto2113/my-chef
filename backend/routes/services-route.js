@@ -11,7 +11,6 @@ router.post("/", async (req, res) => {
       description,
       cost,
     })
-
     const savedService = await service.save()
     res.json(savedService)
   }catch (err) {

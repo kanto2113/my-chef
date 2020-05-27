@@ -1,8 +1,7 @@
-import React, { useState, useRef } from "react"
+import React, { useState } from "react"
 import axios from "axios"
 
 const RegisterChef = () => {
-  let inputRef = useRef()
 
   const [newChef, setNewChef] = useState({
     firstName: "",
@@ -156,12 +155,6 @@ const RegisterChef = () => {
 export default RegisterChef
 
 
-
-
-
-
-
-
       // const newChefProfilePictureInputHandler = async () => {
       //   const formData = new FormData()
       //   formData.append("image", inputRef.current.files[0])
@@ -177,15 +170,15 @@ export default RegisterChef
 
       //   console.log("picture response", pictureResponse)
 
-        // let cloneNewChef = {...newChef, profilePicture: inputRef.current.files[0]}
-        // setNewChef(cloneNewChef)
+      //   let cloneNewChef = {...newChef, profilePicture: inputRef.current.files[0]}
+      //   setNewChef(cloneNewChef)
       
-      {/* <div>
-        <input
-          ref={inputRef}
-          type="file"
-          accept="image/*"
-          onChange={newChefProfilePictureInputHandler}
-          placeholder="Profile Picture URL"
-        />
-      </div> */}
+      // <div>
+      //   <input
+      //     ref={inputRef}
+      //     type="file"
+      //     accept="image/*"
+      //     onChange={newChefProfilePictureInputHandler}
+      //     placeholder="Profile Picture URL"
+      //   />
+      // </div>

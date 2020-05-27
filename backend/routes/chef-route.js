@@ -116,7 +116,6 @@ router.post("/tokenIsValid", async (req, res) => {
 // get chef id & name
 
 router.get("/:id", async (req, res) => {
-  console.log("ive hit the route")
   try {
   let chefRes = await Chef.findById(req.params.id)
     .populate({
@@ -126,7 +125,6 @@ router.get("/:id", async (req, res) => {
         model: "service"
     }
   })
-  console.log(chefRes)
   res.send(chefRes)
   } catch (err) {
     res.status(500).json({ error: err.message })

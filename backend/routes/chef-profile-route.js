@@ -25,9 +25,9 @@ router.post("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-  let chefProfileRes = await ChefProfile.findById(req.params.id).populate("services")
-  console.log(chefProfileRes)
-  res.send(chefProfileRes)
+    let chefProfileRes = await ChefProfile.findById(req.params.id).populate("services")
+    console.log(chefProfileRes)
+    res.send(chefProfileRes)
   } catch (err) {
     res.status(500).json({ error: err.message })
   }

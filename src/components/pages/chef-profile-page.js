@@ -4,28 +4,21 @@ import axios from "axios"
 
 export const ChefServiceContext = React.createContext()
 
-const ChefProfilePage = () => {
+const ChefProfilePage = (props) => {
 
   const [ chefService, setChefService ] = useState([])
 
-  const [ chefProfile, setChefProfile ] = useState({
-    id: '',
-    firstName: '',
-    profilePicture: '',
-    bio: '',
-  })
+  const [ chefProfile, setChefProfile ] = useState()
  
   useEffect(()=>{
     let getChefProfile = async () => {
       const profileRes = await axios.get("http://localhost:5000/chefs/5ecd9467f77f8d3e9054bcc0")
       setChefService([...profileRes.data.profile[0].services])
       setChefProfile({...profileRes.data})
-      console.log("profileRes", profileRes)
     }
     getChefProfile()
   },[])
 
-  console.log("chef profile", chefProfile)
 
   return (
     <ChefServiceContext.Provider value={[chefService, setChefService]}>
@@ -34,13 +27,13 @@ const ChefProfilePage = () => {
           <div className="profile-header">
             <div className="profile-header-text-container">
               <div className="profile-name">
-                Butch Powers
+                {chefProfile?.firstName} {chefProfile?.lastName}
               </div>
               <div className="profile-location">
-                Berkeley, CA
+                {chefProfile?.profile[0].locationCity}, {chefProfile?.profile[0].locationState}
               </div>
               <div className="profile-bio">
-                I kick ass and chew bubblegum, and i'm all out of bubblegum.
+                {chefProfile?.profile[0].bio}
               </div>
             </div>
             <div>

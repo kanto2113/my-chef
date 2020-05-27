@@ -45,7 +45,8 @@ const App = () => {
         setUserData({
           token,
           user: userRes.data,
-        })}
+        })
+      }
       const chefTokenRes = await axios.post(
         "http://localhost:5000/chefs/tokenIsValid",
         null,
