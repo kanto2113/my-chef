@@ -4,22 +4,24 @@ import axios from "axios"
 
 export const ChefServiceContext = React.createContext()
 
-const ChefProfilePage = (props) => {
+const ChefProfilePage = () => {
 
   const [ chefService, setChefService ] = useState([])
 
   const [ chefProfile, setChefProfile ] = useState()
  
   useEffect(()=>{
-    let getChefProfile = async () => {
+    let getChefData = async () => {
       const profileRes = await axios.get("http://localhost:5000/chefs/5ecd9467f77f8d3e9054bcc0")
-      setChefService([...profileRes.data.profile[0].services])
       setChefProfile({...profileRes.data})
+      setChefService([...profileRes.data.profile[0].services])
+
     }
-    getChefProfile()
+    getChefData()
   },[])
 
-
+  chefService.forEach((el) => {el.firstName = chefProfile.firstName})
+  
   return (
     <ChefServiceContext.Provider value={[chefService, setChefService]}>
       <div className="background">

@@ -20,7 +20,7 @@ const ChefServiceCardContainer = (props) => {
             </div>
           </div>
           <div className="chef-service-purchase-button">
-            <button>Hire Butch</button>
+            <button>Hire {props.service.firstName}</button>
           </div>
       </div>
     </div>
