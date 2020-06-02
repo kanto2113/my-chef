@@ -10,6 +10,7 @@ import Register from "./components/auth/register-user"
 import About from "./components/pages/about"
 import NewChefContainer from "./components/auth/register-chef"
 import ChefProfile from "./components/pages/chef-profile-page"
+import EditChefProfile from "./components/pages/edit-chef-profile-page"
 
 import UserContext from "./context/UserContext"
 import ChefContext from "./context/ChefContext"
@@ -88,6 +89,9 @@ const App = () => {
           </Route>
           <Route path="/chefProfile">
             <ChefProfile />
+          </Route>
+          <Route path="/editChefProfile">
+            <EditChefProfile />
           </Route>
         </Switch>
         </UserContext.Provider>

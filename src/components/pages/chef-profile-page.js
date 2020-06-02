@@ -12,15 +12,16 @@ const ChefProfilePage = () => {
  
   useEffect(()=>{
     let getChefData = async () => {
-      const profileRes = await axios.get("http://localhost:5000/chefs/5ecd9467f77f8d3e9054bcc0")
+      const profileRes = await axios.get("http://localhost:5000/chefs/5ed56b9518d80a39549ae5d3")
       setChefProfile({...profileRes.data})
-      setChefService([...profileRes.data.profile[0].services])
-
+      setChefService([...profileRes.data.profile.services])
     }
     getChefData()
   },[])
 
   chefService.forEach((el) => {el.firstName = chefProfile.firstName})
+  
+  console.log(chefProfile)
   
   return (
     <ChefServiceContext.Provider value={[chefService, setChefService]}>
@@ -32,10 +33,10 @@ const ChefProfilePage = () => {
                 {chefProfile?.firstName} {chefProfile?.lastName}
               </div>
               <div className="profile-location">
-                {chefProfile?.profile[0].locationCity}, {chefProfile?.profile[0].locationState}
+                {chefProfile?.profile.locationCity}, {chefProfile?.profile.locationState}
               </div>
               <div className="profile-bio">
-                {chefProfile?.profile[0].bio}
+                {chefProfile?.profile.bio}
               </div>
             </div>
             <div>

@@ -327,8 +327,9 @@ a:hover{
 /* Chef Profie Page */
 
 .chef-profile {
-    padding: 50px 0px;
+    padding: 50px 0 0 0 ;
     width: 750px;
+    height: 325px;
     position: relative;
     left: 50%;
     margin-left: -375px;
@@ -360,6 +361,8 @@ a:hover{
 
 .profile-bio {
     font-weight: 300;
+    height: 75px;
+    width: 410px;
 }
 
 .profile-chef-picture {
@@ -373,6 +376,34 @@ a:hover{
     padding: 20px 20px;
 }
 
+
+/* Edit Chef Profile Page */
+
+.chef-profile-edit {
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-bio-edit {
+    font-weight: 300;
+    margin-top: 30px;
+    resize: none;
+}
+
+.chef-profile-edit-tools {
+    position: relative;
+    left: 50%;
+    margin-left: -170px;
+}
+
+.profile-location-edit {
+    font-weight: 600;
+}
+
+.edit-button {
+    width: 150px;
+    margin: 20px 10px 0px 10px;
+}
 
 /* Chef Service Card */
 
@@ -393,12 +424,18 @@ a:hover{
     text-align: center;
 }
 
-.chef-service-description {
+.chef-service-description-textarea {
     font-size: 16px;
+    resize: none;
 }
 
 .chef-service-cost {
     font-weight: 600;
+}
+
+.chef-service-cost-input {
+    width: 23px;
+
 }
 
 .chef-service-addons {

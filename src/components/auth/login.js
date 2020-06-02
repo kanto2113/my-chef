@@ -33,7 +33,7 @@ const Login = (props) => {
         .post("http://localhost:5000/chefs/login", loginCreds)
         .then((res) => console.log(res.data))
 
-    window.location = "/chefProfile"
+    window.location = "/editChefProfile"
     }else{
       axios
         .post("http://localhost:5000/users/login", loginCreds)

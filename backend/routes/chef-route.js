@@ -3,6 +3,8 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const auth = require("../middleware/chefAuth")
 let Chef = require("../models/chef-model")
+let ChefProfile = require("../models/chef-profile-model")
+
 
 // register new chef
 
@@ -113,22 +115,60 @@ router.post("/tokenIsValid", async (req, res) => {
   }
 })
 
-// get chef id & name
+// get chef id, name, and services
 
 router.get("/:id", async (req, res) => {
   try {
-  let chefRes = await Chef.findById(req.params.id)
-    .populate({
-      path:"profile",
-      populate: {
-        path:"services",
-        model: "service"
-    }
-  })
+    let chefRes = await Chef.findById(req.params.id)
+      .populate({
+        path:"profile",
+        populate: {
+          path:"services",
+          model: "service"
+      }
+    })
   res.send(chefRes)
   } catch (err) {
     res.status(500).json({ error: err.message })
   }
 })
+
+// update chef profile
+
+// router.post("/profile/update/:id", async (req, res) => {
+//   try{
+//     ChefProfile.findByIdAndUpdate(req.params.id)
+//     .then(chef => {
+//       chef.
+//     })
+//   } catch (err) {
+//     res.status(500).json({ error: err.message })
+//   }
+
+
+// })
+
+// create profile
+
+router.post("/profile/:id", async (req, res) => {
+  try {
+    let { _author, locationCity, locationState, bio, profilePicture, services } = req.body
+
+    const chefProfile = new ChefProfile({
+      _author,
+      locationCity,
+      locationState,
+      bio,
+      profilePicture,
+      services
+    })
+
+    const savedChefProfile = await chefProfile.save()
+    res.json(savedChefProfile)
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+})
+
 
 module.exports = router
