@@ -16,7 +16,6 @@ const LocationSelector = () => {
     setChefProfile(cloneChefProfile)
   }
 
-  console.log('chefProfile', chefProfile)
 
   return (
     <div>

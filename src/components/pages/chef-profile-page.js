@@ -21,7 +21,6 @@ const ChefProfilePage = () => {
 
   chefService.forEach((el) => {el.firstName = chefProfile.firstName})
   
-  console.log(chefProfile)
   
   return (
     <ChefServiceContext.Provider value={[chefService, setChefService]}>

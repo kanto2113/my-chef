@@ -25,7 +25,6 @@ const EditChefProfilePage = () => {
       const profileRes = await axios.get("http://localhost:5000/chefs/5ed56cff18d80a39549ae5d4")
       setChefProfile({...profileRes.data})
       setChefProfile({...profileRes.data, _id:profileRes.data._id})
-      console.log('profileRes', profileRes)
       if (!chefProfile.profile) {
         setChefProfile({...profileRes.data, profile: {profilePicture: "https://t4.ftcdn.net/jpg/00/64/67/63/240_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"}}
         )

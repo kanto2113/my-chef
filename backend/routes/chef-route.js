@@ -4,13 +4,15 @@ const jwt = require("jsonwebtoken")
 const auth = require("../middleware/chefAuth")
 let Chef = require("../models/chef-model")
 let ChefProfile = require("../models/chef-profile-model")
+let Service = require("../models/service-model")
+let mongoose = require("mongoose")
 
 
 // register new chef
 
 router.post("/register", async (req, res) => {
   try {
-    let { firstName, lastName, email, password, passwordCheck, profile } = req.body
+    let { firstName, lastName, email, password, passwordCheck } = req.body
 
     // validate
 
@@ -36,16 +38,47 @@ router.post("/register", async (req, res) => {
     console.log(passwordHash)
     console.log(email)
 
+    const newService = new Service({
+      title: 'not set',
+      description: 'not set',
+      cost: 0,
+    })
+
+    console.log('before save service', newService)
+
+    await newService.save()
+
+    console.log('after save service', newService)
+
+    const newServ = mongoose.Types.ObjectId(newService._id)
+
+    console.log('newServ', newServ )
+
+    const newChefProfile = new ChefProfile({
+      locationCity: 'not set',
+      locationState: 'not set',
+      bio: 'not set',
+      profilePicture: 'not set',
+      services: [newServ],
+    })
+
+    console.log('before save', newChefProfile)
+    try{
+    await newChefProfile.save()
+    }catch(err){console.log(err)}
+    console.log('after save', newChefProfile)
+
     const newChef = new Chef({
       firstName,
       lastName,
       email,
       password: passwordHash,
-      profile
+      profile: newChefProfile._id
     })
 
     const savedChef = await newChef.save()
-    res.json(savedChef)
+    console.log('savedChef', savedChef)
+    res.send(savedChef)
   } catch (err) {
     res.status(500).json({ error: err.message })
   }
@@ -132,43 +165,5 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ error: err.message })
   }
 })
-
-// update chef profile
-
-// router.post("/profile/update/:id", async (req, res) => {
-//   try{
-//     ChefProfile.findByIdAndUpdate(req.params.id)
-//     .then(chef => {
-//       chef.
-//     })
-//   } catch (err) {
-//     res.status(500).json({ error: err.message })
-//   }
-
-
-// })
-
-// create profile
-
-router.post("/profile/:id", async (req, res) => {
-  try {
-    let { _author, locationCity, locationState, bio, profilePicture, services } = req.body
-
-    const chefProfile = new ChefProfile({
-      _author,
-      locationCity,
-      locationState,
-      bio,
-      profilePicture,
-      services
-    })
-
-    const savedChefProfile = await chefProfile.save()
-    res.json(savedChefProfile)
-  } catch (err) {
-    res.status(500).json({ error: err.message })
-  }
-})
-
 
 module.exports = router

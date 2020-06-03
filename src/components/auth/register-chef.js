@@ -39,29 +39,31 @@ const RegisterChef = () => {
 // submit register chef form
 
   const onSubmit = () => {
+
     const newChefCreds = {
-      name: newChef.name,
+      firstName: newChef.firstName,
+      lastName: newChef.lastName,
       email: newChef.email,
       password: newChef.password,
       passwordCheck: newChef.passwordCheck,
-      profilePicture: newChef.profilePicture,
     }
 
     axios
       .post("http://localhost:5000/chefs/register", newChefCreds)
-      .then((res) => console.log(res.data))
-
-    const newChefLogin = {
-      email: newChef.email,
-      password: newChef.password,
-      passwordCheck: newChef.passwordCheck
-    }
-
-    axios
-      .post("http://localhost:5000/chefs/login", newChefLogin)
-      .then((res)=> console.log(res.data))
-
-    window.location = "/chefProfile"
+      .then((res) => {
+            const newChefLogin = {
+              email: res.data.email,
+              password: res.data.email.password,
+            } 
+            axios
+              .post("http://localhost:5000/chefs/login", newChefLogin)
+              .then((res)=> console.log(res.data))
+              window.location = "/editChefProfile"
+        }
+      )
+      .catch((err) => console.log(err))
+      
+    
   }
 
 // show password
