@@ -1,17 +1,32 @@
-import React from "react"
-// import { useHistory } from "react-router-dom"
+import React, { useContext } from "react"
+import UserDataContext from "../../context/UserDataContext"
 
 const AuthOptions = () => {
 
-    // const history = useHistory()
+    const {userData, setUserData} = useContext(UserDataContext) 
 
-    // const register = () => history.push("/register")
-    // const login = () => history.push("/login")
+    const logout = () => {
+        setUserData({
+            token: undefined,
+            user: undefined
+        })
+        localStorage.setItem("auth-token", "")
+    }
 
     return (
         <ul className="menu">
-            <li className="item nav-button"><a href="/login">Login</a></li>
-            <li className="item nav-button"><a href="/register">Sign Up</a></li>
+            {userData.user ? (
+                <>
+                    <li className="item nav-button"><a href="/chefProfile">Profile</a></li> 
+                    <li onClick={logout} className="item nav-button"><a href="/logout">Log Out</a></li> 
+                </>
+            ) : (
+                <>
+                    <li className="item nav-button"><a href="/register">Sign Up</a></li>
+                    <li className="item nav-button"><a href="/login">Login</a></li>
+                </>
+            )}
+
         </ul>
     )
 

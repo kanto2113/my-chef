@@ -1,26 +1,55 @@
-import React from "react"
+import React, { useContext } from "react"
+import { EditChefServiceContext } from "./pages/edit-chef-profile-page"
 
 const EditChefServiceCardContainer = (props) => {
 
+  const [ chefService, setChefService] = useContext(EditChefServiceContext)
+
+  const deleteServiceButton = () => {
+    let cloneChefService = chefService.filter((service)=>{
+        return service.title != props.service.title
+    })
+    setChefService(cloneChefService)
+  }
+
+  // const titleInputHandler = (e) => {
+  //   let cloneService = [...chefService]
+  //   cloneService.forEach((service) => {
+  //     if(service.title == props.service.title){
+  //       service.title = e.target.value
+  //     }
+  //   })
+  //   setChefService(cloneService)
+  // }
+
+  const titleInputHandler = (e) => { 
+
+  }
+
   return (
-    <div className="chef-service-container">
-      <div className="chef-service-title">
-        <input placeholder="Name of Service" className="chef-service-title"></input>
+    <div className="service-container">
+      <div className="service-header">
+        <div className="service-delete">
+          <button onClick={deleteServiceButton}>X</button>
+        </div>
+        <div className="service-title">
+          <input value={props.service.title} placeholder="Name of Service" className="service-title-input" onChange={(e)=>{titleInputHandler(e)}}></input>
+        </div>
       </div>
         <div>
-          <textarea className="chef-service-description-textarea" maxLength="200" cols="40" rows="5" placeholder="A breif description of the service."></textarea>
+          <textarea value={props.service.description} className="service-description-textarea" maxLength="200" cols="40" rows="5" placeholder="A breif description of the service."></textarea>
         </div>
-        <div className="chef-service-footer">
-          <div className="chef-service-footer">
-            <div className="chef-service-cost">
-              $<input className="chef-service-cost-input" placeholder="0"></input>
+        <div className="service-footer">
+          <div className="service-footer">
+            <div className="service-cost">
+              $<input value={props.service.cost} className="service-cost-input" placeholder="0"></input>
             </div>
             <div>
               &nbsp;per meal.
             </div>
           </div>
-          <div className="chef-service-purchase-button">
-            <button>Hire {props.service.firstName}</button>
+          <div className="service-purchase-button">
+            <button>Done</button>
           </div>
       </div>
     </div>

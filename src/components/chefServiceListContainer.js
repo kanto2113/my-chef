@@ -5,10 +5,10 @@ import { ChefServiceContext } from "./pages/chef-profile-page"
 
 const ChefServiceListContainer = () => {
 
-  const [ chefService, setChefService ] = useContext(ChefServiceContext)
+  const [ chefService ] = useContext(ChefServiceContext)
 
   return (
-    <div className="chef-service-list">
+    <div className="service-list">
       {chefService.map((service) => {
         return(
           <ChefServiceCardContainer key={service.title} service={service} />

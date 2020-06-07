@@ -37,9 +37,8 @@ app.use(fileUpload())
 // set up routes
 
 app.use('/users', require('./routes/user-route'))
-app.use('/chefs', require('./routes/chef-route'))
 app.use('/services', require('./routes/services-route'))
-app.use('/chefs/profile', require('./routes/chef-profile-route'))
+app.use('/chefprofile', require('./routes/chef-profile-route'))
 
 require("./routes/aws-route")(app)
 

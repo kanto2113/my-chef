@@ -1,13 +1,17 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 import axios from "axios"
+import UserDataContext from "../../context/UserDataContext"
 
-const Login = (props) => {
+const Login = () => {
 
+  const {setUserData} = useContext(UserDataContext)
 
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   })
+
+// Input Handlers
 
   const emailInputHandler = (e) => {
     let cloneCredentials = { ...credentials, email: e.target.value }
@@ -19,32 +23,27 @@ const Login = (props) => {
     setCredentials(clonePassword)
   }
 
-// submit login 
+// Submit Login
 
   const onSubmit = () => {
     const loginCreds = {
       email: credentials.email,
       password: credentials.password,
     }
-
-    let isChef = document.getElementById("chefLogin")
-    if (isChef.checked === true) {
-      axios
-        .post("http://localhost:5000/chefs/login", loginCreds)
-        .then((res) => console.log(res.data))
-
-    window.location = "/editChefProfile"
-    }else{
-      axios
-        .post("http://localhost:5000/users/login", loginCreds)
-        .then((res) => console.log(res.data))
+    axios
+      .post("http://localhost:5000/users/login", loginCreds)
+      .then((res) => {
+        setUserData({
+          token: res.data.token,
+          user: res.data.user
+        })
+        localStorage.setItem("auth-token", res.data.token)
+        window.location = "/"
+      })
     
-    window.location = "/"
-    }
-
   }
 
-// show password checkbox
+// Show Password
 
   const showPassword = () => {
     let x = document.getElementById("myInput")
@@ -83,9 +82,6 @@ const Login = (props) => {
       <input type="checkbox" onClick={showPassword} />  Show Password
       <div className="login-submit">
         <button onClick={onSubmit}>Login</button>
-        <div>
-          <input type="checkbox" id="chefLogin" />Chef Login
-        </div>
       </div>
     </div>
   )

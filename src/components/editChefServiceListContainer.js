@@ -8,10 +8,10 @@ const EditChefServiceListContainer = () => {
   const [ chefService, setChefService ] = useContext(EditChefServiceContext)
 
   return (
-    <div className="chef-service-list">
+    <div className="service-list">
       {chefService.map((service) => {
         return(
-          <EditChefServiceCardContainer key={service.title} service={service} />
+          <EditChefServiceCardContainer key={service.title} service={service} setChefService={setChefService} />
         )
       })}
     </div>

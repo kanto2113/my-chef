@@ -7,25 +7,20 @@ import LocationSelector from "../locationSelector"
 export const EditChefProfileContext = React.createContext()
 export const EditChefServiceContext = React.createContext()
 
-const EditChefProfilePage = () => {
+const EditChefProfilePage = (props) => {
 
-  const [ chefService, setChefService ] = useState([
-    {
-      title: 'title',
-      firstName: 'firstName',
-      description: 'description',
-      cost: 0,
-    }
-  ])
+  const [ chefService, setChefService ] = useState([{}])
 
   const [ chefProfile, setChefProfile ] = useState({})
+  
  
   useEffect(()=>{
     let getChefData = async () => {
-      const profileRes = await axios.get("http://localhost:5000/chefs/5ed56cff18d80a39549ae5d4")
+      const profileRes = await axios.get("http://localhost:5000/chefs/5ed56b9518d80a39549ae5d3")
       setChefProfile({...profileRes.data})
+      setChefService([...profileRes.data.profile.services])
       setChefProfile({...profileRes.data, _id:profileRes.data._id})
-      if (!chefProfile.profile) {
+      if (!profileRes.data.profile.profilePicture) {
         setChefProfile({...profileRes.data, profile: {profilePicture: "https://t4.ftcdn.net/jpg/00/64/67/63/240_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"}}
         )
       }
@@ -39,9 +34,23 @@ const EditChefProfilePage = () => {
 
   const chefBioInputHandler = (e) => {
     let cloneChefProfile = {...chefProfile, profile: {...chefProfile.profile, bio: e.target.value}}
-    setChefProfile(cloneChefProfile
-      )
+    setChefProfile(cloneChefProfile)
   }
+  
+  const newServiceButtonHandler = () => {
+      let newService = {
+        _author: chefProfile._id,
+        firstName: chefProfile.firstName,
+        title: undefined,
+        description: undefined,
+        cost: undefined,
+      }
+      
+      let cloneChefService = chefService.concat(newService)
+      setChefService(cloneChefService)
+    
+  }
+
 
   return (
     <EditChefProfileContext.Provider value={[chefProfile, setChefProfile]}>
@@ -55,7 +64,7 @@ const EditChefProfilePage = () => {
               </div>
               <LocationSelector></LocationSelector>
               <div>
-                <textarea className="profile-bio-edit" maxLength="200" cols="50" rows="4" placeholder="Brief description of yourself and your skills." onChange={(e)=>{chefBioInputHandler(e)}}>
+                <textarea value={chefProfile.profile?.bio} className="profile-bio-edit" maxLength="200" cols="50" rows="4" placeholder="Brief description of yourself and your skills." onChange={(e)=>{chefBioInputHandler(e)}}>
                 </textarea>
               </div>
             </div>
@@ -68,8 +77,8 @@ const EditChefProfilePage = () => {
           <EditChefServiceListContainer></EditChefServiceListContainer>
         </div> 
         <div className="chef-profile-edit-tools">
-          <button className="edit-button">Save Profile</button>
-          <button className="edit-button">Create New Service</button>
+          <button className="edit-button">Save Service</button>
+          <button onClick={newServiceButtonHandler} className="edit-button">Create New Service</button>
         </div>
       </div>
     </EditChefServiceContext.Provider>

@@ -215,7 +215,7 @@ a:hover{
 
 /* Chef Card List Container */
 
-.chef-list-container {
+.list-container {
     display: flex;
     flex-direction: row;
     position: absolute;
@@ -372,7 +372,7 @@ a:hover{
     border: 1.5pt solid black;
 }
 
-.chef-services {
+.services {
     padding: 20px 20px;
 }
 
@@ -407,10 +407,10 @@ a:hover{
 
 /* Chef Service Card */
 
-.chef-service-container {
+.service-container {
     width: 400px;
     height: 200px;
-    margin-right: 10px;
+    margin: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -419,39 +419,55 @@ a:hover{
     border: 1px black solid;
 }
 
-.chef-service-title {
-    font-weight: 600;
-    text-align: center;
+.service-header {
+    display: flex;
 }
 
-.chef-service-description-textarea {
+.service-delete {
+    position: relative;
+    left: 0px;
+}
+
+.service-title {
+    right: 0px;
+    margin-left: 40px;
+}
+
+.service-title-input {
+    font-weight: 600;
+    text-align: center;
+    width: 300px;
+}
+
+.service-description-textarea {
     font-size: 16px;
     resize: none;
 }
 
-.chef-service-cost {
+.service-cost {
     font-weight: 600;
 }
 
-.chef-service-cost-input {
+.service-cost-input {
     width: 23px;
 
 }
 
-.chef-service-addons {
+.service-addons {
     font-weight: 300;
 }
 
-.chef-service-footer {
+.service-footer {
     display: flex;
     justify-content: space-between;
 }
 
 
-/* Chef Service List */
+/* Service List */
 
-.chef-service-list {
+.service-list {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
     padding: 5px;
 }

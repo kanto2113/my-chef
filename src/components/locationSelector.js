@@ -20,7 +20,7 @@ const LocationSelector = () => {
   return (
     <div>
       <input className="profile-location-edit" placeholder="locationCity" value={chefProfile.profile?.locationCity} onChange={(e)=>{editLocationCityInputHandler(e)}}></input> ,  
-      <select name="state" id="state" className="profile-location-edit" onChange={(e)=>{editLocationStateSelectHandler(e)}}>
+      <select name="state" id="state" className="profile-location-edit" value={chefProfile.profile?.locationState} onChange={(e)=>{editLocationStateSelectHandler(e)}}>
         <option>State</option>
         <option value="AL">Alabama</option>
         <option value="AK">Alaska</option>

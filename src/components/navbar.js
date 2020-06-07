@@ -22,7 +22,6 @@ const Navbar = () => {
                 <img className="icon" src="https://i.imgur.com/17Y64el.png" alt="img.png"/>
                 <li className="logo"><a href="/">HiredKnife</a></li>
                 <li className="item"><a href="/">Home</a></li>
-                <li className="item"><a href="/registerchef">Create Chef Account</a></li>
                 <li className="item"><AuthOptions></AuthOptions></li>
                 <li className="toggle" onClick={hamburgerIconHandler}>
 					<span className="bars"></span>

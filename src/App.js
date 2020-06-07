@@ -8,23 +8,16 @@ import Home from "./components/pages/home"
 import Login from "./components/auth/login"
 import Register from "./components/auth/register-user"
 import About from "./components/pages/about"
-import NewChefContainer from "./components/auth/register-chef"
 import ChefProfile from "./components/pages/chef-profile-page"
 import EditChefProfile from "./components/pages/edit-chef-profile-page"
 
-import UserContext from "./context/UserContext"
-import ChefContext from "./context/ChefContext"
+import UserDataContext from "./context/UserDataContext"
 
 const App = () => {
 
   const [ userData, setUserData ] = useState({
     token: undefined,
     user: undefined,
-  })
-
-  const [ chefData, setChefData ] = useState({
-    token: undefined,
-    chef: undefined,
   })
 
   useEffect(()=>{
@@ -34,33 +27,20 @@ const App = () => {
         localStorage.setItem("auth-token", "")
         token = ""
       }
-      const userTokenRes = await axios.post(
+      const tokenRes = await axios.post(
         "http://localhost:5000/users/tokenIsValid",
         null,
         { headers: { "x-auth-token": token } }
       )
-      if(userTokenRes.data) {
+      if(tokenRes.data) {
         const userRes = await axios.get("http://localhost:5000/users/", {
           headers: {"x-auth-token": token },
         })
-        setUserData({
-          token,
-          user: userRes.data,
-        })
-      }
-      const chefTokenRes = await axios.post(
-        "http://localhost:5000/chefs/tokenIsValid",
-        null,
-        { headers: { "x-auth-token": token } }
-      )
-      if(chefTokenRes.data) {
-        const chefRes = await axios.get("http://localhost:5000/chefs/", {
-          headers: {"x-auth-token": token },
-        })
-        setChefData({
-          token,
-          chef: chefRes.data,
-        })
+      console.log('userRes.data', userRes.data)
+      setUserData({
+        token,
+        user: userRes.data,
+      })
       }
     }
     checkLoggedIn()
@@ -68,8 +48,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <ChefContext.Provider value={{ chefData, setChefData }}>
-      <UserContext.Provider value={{ userData, setUserData }}>
+      <UserDataContext.Provider value={{ userData, setUserData }}>
         <Navbar></Navbar>
         <Switch>
           <Route exact path="/">
@@ -84,9 +63,6 @@ const App = () => {
           <Route path="/about">
             <About />
           </Route>
-          <Route path="/registerchef">
-            <NewChefContainer />
-          </Route>
           <Route path="/chefProfile">
             <ChefProfile />
           </Route>
@@ -94,8 +70,7 @@ const App = () => {
             <EditChefProfile />
           </Route>
         </Switch>
-        </UserContext.Provider>
-        </ChefContext.Provider>
+        </UserDataContext.Provider>
     </BrowserRouter>
   )
 }
