@@ -64,7 +64,7 @@ const EditChefProfilePage = (props) => {
               </div>
               <LocationSelector></LocationSelector>
               <div>
-                <textarea value={chefProfile.profile?.bio} className="profile-bio-edit" maxLength="200" cols="50" rows="4" placeholder="Brief description of yourself and your skills." onChange={(e)=>{chefBioInputHandler(e)}}>
+                <textarea value={chefProfile?.profile.bio} className="profile-bio-edit" maxLength="200" cols="50" rows="4" placeholder="Brief description of yourself and your skills." onChange={(e)=>{chefBioInputHandler(e)}}>
                 </textarea>
               </div>
             </div>

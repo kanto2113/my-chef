@@ -1,11 +1,11 @@
 import React, { useContext } from "react"
 import EditChefServiceCardContainer from "./editChefServiceCardContainer"
-import { EditChefServiceContext } from "./pages/edit-chef-profile-page"
+import { ChefServiceContext } from "./pages/chef-profile-page"
 
 
 const EditChefServiceListContainer = () => {
 
-  const [ chefService, setChefService ] = useContext(EditChefServiceContext)
+  const [ chefService, setChefService ] = useContext(ChefServiceContext)
 
   return (
     <div className="service-list">

@@ -234,6 +234,7 @@ a:hover{
     width: 225px;
     border-radius: 10px;
     border: 1.5pt solid black;
+    cursor: pointer;
 }
 
 .chef-card-header {

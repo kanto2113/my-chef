@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
 
-import { EditChefProfileContext } from './pages/edit-chef-profile-page'
+import { ChefProfileContext } from './pages/chef-profile-page'
 
 const LocationSelector = () => {
 
-  const [ chefProfile, setChefProfile ] = useContext(EditChefProfileContext)
+  const [ chefProfile, setChefProfile ] = useContext(ChefProfileContext)
 
   const editLocationCityInputHandler = (e) => {
     let cloneChefProfile = {...chefProfile, profile: {...chefProfile.profile, locationCity: e.target.value}}
