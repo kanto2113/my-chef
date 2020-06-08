@@ -2,30 +2,30 @@ import React, { useState, useEffect, useContext } from "react"
 import ChefServiceListContainer from "../chefServiceListContainer"
 import axios from "axios"
 import UserDataContext from "../../context/UserDataContext"
+import { useParams } from "react-router-dom"
 
 export const ChefServiceContext = React.createContext()
 
 const ChefProfilePage = () => {
 
   const [ chefService, setChefService ] = useState([])
-
   const [ chefProfile, setChefProfile ] = useState()
-
   const { userData } = useContext(UserDataContext)
+
+  const { id } = useParams()
  
   useEffect(()=>{
     let getChefProfile = async () => {
-      const profileRes = await axios.get(`http://localhost:5000/users/${userData.user}`)
-      // const profileRes = await axios.get("http://localhost:5000/chefprofile/5edd265d1a31f016e0ba70e9")
-      console.log('profileRes', profileRes.data)
-      setChefProfile({...profileRes.data})
+      const profileRes = await axios.get(`http://localhost:5000/profile/${id}`)
+      setChefProfile(profileRes.data)
       setChefService([...profileRes.data.profile.services])
+      if(profileRes.data.profile.profilePicture === 'not set'){profileRes.data.profile.profilePicture = "https://t4.ftcdn.net/jpg/00/64/67/63/240_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"}
     }
     getChefProfile()
 
   },[])
 
-  console.log('userData', userData)
+  console.log('chef profile', chefProfile)
   
   chefService.forEach((el) => {el.firstName = chefProfile.firstName})
 
@@ -46,7 +46,7 @@ const ChefProfilePage = () => {
               </div>
             </div>
             <div>
-              <img className="profile-chef-picture" src="https://t4.ftcdn.net/jpg/00/64/67/63/240_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" alt=""></img>
+              <img className="profile-chef-picture" src={chefProfile?.profile.profilePicture} alt=""></img>
             </div>
           </div>  
         </div>

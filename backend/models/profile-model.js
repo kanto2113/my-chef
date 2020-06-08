@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 const Schema = mongoose.Schema
 
-const chefProfileSchema = new Schema({
+const profileSchema = new Schema({
   locationCity: String,
   locationState: String,
   bio: String,
@@ -10,4 +10,4 @@ const chefProfileSchema = new Schema({
   services: [{ type: mongoose.Schema.Types.ObjectId, ref: 'service'}]
 })
 
-module.exports = mongoose.model("chefProfile", chefProfileSchema )
+module.exports = mongoose.model("profile", profileSchema )

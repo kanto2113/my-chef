@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const auth = require("../middleware/userAuth")
 let User = require("../models/user-model")
-let ChefProfile = require("../models/chef-profile-model")
+let Profile = require("../models/profile-model")
 let Service = require("../models/service-model")
 
 
@@ -48,16 +48,16 @@ router.post("/register", async (req, res) => {
     await newService.save()
 
     const newServ = mongoose.Types.ObjectId(newService._id)
-    const newChefProfile = new ChefProfile({
+    const newProfile = new Profile({
       locationCity: 'not set',
       locationState: 'not set',
       bio: 'not set',
-      profilePicture: 'not set',
+      profilePicture: 'https://t4.ftcdn.net/jpg/00/64/67/63/240_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg',
       services: [newServ],
     })
 
     try{
-      await newChefProfile.save()
+      await newProfile.save()
     }catch(err){console.log(err)}
 
     const newUser = new User({
@@ -65,7 +65,7 @@ router.post("/register", async (req, res) => {
       lastName,
       email,
       password: passwordHash,
-      profile: newChefProfile._id
+      profile: newProfile._id
     })
 
     const savedUser = await newUser.save()
@@ -103,6 +103,7 @@ router.post("/login", async (req, res) => {
       user: {
         id: user._id,
         firstName: user.firstName,
+        lastName: user.lastName
       },
     })
   } catch (err) {
@@ -149,8 +150,29 @@ router.get("/", auth, async (req, res) => {
   const user = await User.findById(req.user)
   res.json({
       firstName: user.firstName,
+      lastName: user.lastName,
       id: user._id,
   })
+})
+
+// get all users for cards
+
+// services cost need to be filtered to one number of lowest cost
+
+router.route('/cards').get((req, res) => {
+  User.find()
+    .select({firstName:1, lastName:1 })
+    .populate({
+      path:"profile",
+      select: "bio profilePicture -_id",
+      populate: {
+        path:"services",
+        model: "service",
+        select: "cost -_id",
+      }
+    })
+    .then(userCard => res.json(userCard))
+    .catch(err => res.status(400).json('Error: '+ err))
 })
 
 module.exports = router

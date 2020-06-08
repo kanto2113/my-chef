@@ -11,7 +11,7 @@ const ChefListContainer = () => {
     <div className="list-container">
       {chefList.map((chef) => {
         return(
-          <ChefCardContainer key={chef.name} chef={chef} />
+          <ChefCardContainer key={chef._id} chef={chef} />
         )
       })}
     </div>

@@ -36,7 +36,6 @@ const App = () => {
         const userRes = await axios.get("http://localhost:5000/users/", {
           headers: {"x-auth-token": token },
         })
-      console.log('userRes.data', userRes.data)
       setUserData({
         token,
         user: userRes.data,
@@ -63,8 +62,7 @@ const App = () => {
           <Route path="/about">
             <About />
           </Route>
-          <Route path="/chefProfile">
-            <ChefProfile />
+          <Route path="/chefProfile/:id" children={<ChefProfile />}>
           </Route>
           <Route path="/editChefProfile">
             <EditChefProfile />

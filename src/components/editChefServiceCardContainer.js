@@ -7,7 +7,7 @@ const EditChefServiceCardContainer = (props) => {
 
   const deleteServiceButton = () => {
     let cloneChefService = chefService.filter((service)=>{
-        return service.title != props.service.title
+        return service.title !== props.service.title
     })
     setChefService(cloneChefService)
   }

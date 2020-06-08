@@ -1,6 +1,6 @@
 const router = require("express").Router()
 let User = require("../models/user-model")
-let ChefProfile = require("../models/chef-profile-model")
+let Profile = require("../models/profile-model")
 const mongoose = require("mongoose")
 
 
@@ -10,7 +10,7 @@ router.post("/", async (req, res) => {
   try {
     let { locationCity, locationState, bio, profilePicture, services } = req.body
 
-    const chefProfile = new ChefProfile({
+    const Profile = new Profile({
       locationCity,
       locationState,
       bio,
@@ -18,22 +18,13 @@ router.post("/", async (req, res) => {
       services
     })
 
-    const savedChefProfile = await chefProfile.save()
-    res.json(savedChefProfile)
+    const savedProfile = await Profile.save()
+    res.json(savedProfile)
   } catch (err) {
     res.status(500).json({ error: err.message })
   }
 })
 
-// // get chef profile
-// router.get("/:id", async (req, res) => {
-//   try {
-//     let chefProfileRes = await ChefProfile.findById(req.params.id).populate("services")
-//     res.send(chefProfileRes)
-//   } catch (err) {
-//     res.status(500).json({ error: err.message })
-//   }
-// })
 
 // get user data, profile data, and services data
 
@@ -54,7 +45,7 @@ router.get("/:id", async (req, res) => {
 })
 
 
-// update chefProfile._author with profile id
+// update Profile._author with profile id
 
 router.post("/update/", async (req, res) => {
   try{
