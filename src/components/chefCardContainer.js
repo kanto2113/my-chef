@@ -19,7 +19,7 @@ const ChefCardContainer = (props) => {
         {props.chef.profile.bio}
       </div>
       <div className="chef-card-services">
-        Meals starting at ${props.chef.profile.services[0].cost} each.
+        Meals starting at ${props.chef.profile.services[0]?.cost} each.
       </div>
     </div>
   )

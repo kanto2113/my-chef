@@ -394,14 +394,25 @@ a:hover{
 .chef-profile-edit-tools {
     position: relative;
     left: 50%;
-    margin-left: -170px;
+    margin-left: -90px;
 }
 
 .profile-location-edit {
     font-weight: 600;
 }
 
-.edit-button {
+.edit-profile-button {
+    width: 150px;
+    margin: 20px 10px 0px 10px;
+}
+
+.chef-service-edit-tools {
+    position: relative;
+    left: 50%;
+    margin-left: -170px;
+}
+
+.edit-service-button {
     width: 150px;
     margin: 20px 10px 0px 10px;
 }

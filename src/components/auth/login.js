@@ -40,7 +40,6 @@ const Login = () => {
         localStorage.setItem("auth-token", res.data.token)
         window.location = "/"
       })
-    
   }
 
 // Show Password
@@ -81,7 +80,7 @@ const Login = () => {
       </div>
       <input type="checkbox" onClick={showPassword} />  Show Password
       <div className="login-submit">
-        <button onClick={onSubmit}>Login</button>
+        <button id="myBtn" onClick={onSubmit}>Login</button>
       </div>
     </div>
   )

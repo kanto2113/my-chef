@@ -45,21 +45,54 @@ router.get("/:id", async (req, res) => {
 })
 
 
-// update Profile._author with profile id
+// update Profile.services with new service
 
-router.post("/update/", async (req, res) => {
+router.post("/services/:id", async (req, res) => {
   try{
-    let profile = {_author: mongoose.Types.ObjectId(req.body.profile._author)}
-    User.findByIdAndUpdate(mongoose.Types.ObjectId(req.body._id), {profile})
-    .then((result)=>{
-      res.send(result.data)
-    })
-  } catch (err) {
+    let { _id } = req.body
+    let profileRes = await Profile.findByIdAndUpdate(req.params.id)
+      .updateOne({ 
+        $push: { services: req.body } 
+      })
+    res.send(profileRes)
+  }catch (err) {
+    console.log('err', err)
+    res.status(500).json({ error: err.message })
+  }
+})
+
+// update Profile.services by removing old service
+
+router.post("/service_remove/:id", async (req, res) => {
+  try{
+    let profileRes = await Profile.findByIdAndUpdate(req.params.id)
+      .updateOne({ 
+        $pull: { services: req.params.id } 
+      })
+    res.send(profileRes)
+  }catch (err) {
     console.log('err', err)
     res.status(500).json({ error: err.message })
   }
 })
 
 
-
 module.exports = router
+
+
+
+
+// update Profile._author with profile id
+// 
+// router.post("/update/", async (req, res) => {
+//   try{
+//     let profile = {_author: mongoose.Types.ObjectId(req.body.profile._author)}
+//     User.findByIdAndUpdate(mongoose.Types.ObjectId(req.body._id), {profile})
+//     .then((result)=>{
+//       res.send(result.data)
+//     })
+//   } catch (err) {
+//     console.log('err', err)
+//     res.status(500).json({ error: err.message })
+//   }
+// })

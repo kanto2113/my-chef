@@ -1,14 +1,19 @@
 import React, { useContext } from "react"
 import { ChefServiceContext } from "./pages/chef-profile-page"
+import Axios from "axios"
 
 const EditChefServiceCardContainer = (props) => {
 
   const [ chefService, setChefService] = useContext(ChefServiceContext)
 
-  const deleteServiceButton = () => {
+  const deleteServiceButton = async () => {
     let cloneChefService = chefService.filter((service)=>{
         return service.title !== props.service.title
     })
+    let serviceRes = await Axios.delete(`http://localhost:5000/services/delete/${props.service._id}`)
+    console.log('serviceRes', serviceRes)
+    let deletedService = serviceRes.data._id
+    let profileRes = await Axios.post(`http://localhost:5000/profile/service_remove/${deletedService}`)
     setChefService(cloneChefService)
   }
 
@@ -33,9 +38,6 @@ const EditChefServiceCardContainer = (props) => {
             <div>
               &nbsp;per meal.
             </div>
-          </div>
-          <div className="service-purchase-button">
-            <button>Done</button>
           </div>
       </div>
     </div>
