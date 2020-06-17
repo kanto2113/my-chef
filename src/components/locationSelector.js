@@ -1,26 +1,46 @@
-import React, { useContext } from 'react'
+import React, { useContext } from "react"
 
-import { ChefProfileContext } from './pages/chef-profile-page'
+import { ProfileContext } from "./pages/chef-profile-page"
 
 const LocationSelector = () => {
-
-  const [ chefProfile, setChefProfile ] = useContext(ChefProfileContext)
+  const [profile, setProfile] = useContext(ProfileContext)
 
   const editLocationCityInputHandler = (e) => {
-    let cloneChefProfile = {...chefProfile, profile: {...chefProfile.profile, locationCity: e.target.value}}
-    setChefProfile(cloneChefProfile)
+    let cloneProfile = {
+      ...profile,
+      profile: { ...profile.profile, locationCity: e.target.value },
+    }
+    setProfile(cloneProfile)
   }
 
   const editLocationStateSelectHandler = (e) => {
-    let cloneChefProfile = {...chefProfile, profile: {...chefProfile.profile, locationState: e.target.value}}
-    setChefProfile(cloneChefProfile)
+    let cloneProfile = {
+      ...profile,
+      profile: { ...profile.profile, locationState: e.target.value },
+    }
+    setProfile(cloneProfile)
   }
-
 
   return (
     <div>
-      <input className="profile-location-edit" placeholder="locationCity" value={chefProfile?.profile.locationCity} onChange={(e)=>{editLocationCityInputHandler(e)}}></input> ,  
-      <select name="state" id="state" className="profile-location-edit" value={chefProfile?.profile.locationState} onChange={(e)=>{editLocationStateSelectHandler(e)}}>
+      <input
+        className="profile-location-edit"
+        placeholder="locationCity"
+        value={profile?.profile.locationCity}
+        onChange={(e) => {
+          editLocationCityInputHandler(e)
+        }}
+      ></input>{" "}
+      ,
+      <select
+        name="state"
+        id="state"
+        className="profile-location-edit"
+        value={profile?.profile.locationState}
+        onChange={(e) => {
+          editLocationStateSelectHandler(e)
+        }}
+      >
         <option>State</option>
         <option value="AL">Alabama</option>
         <option value="AK">Alaska</option>
@@ -76,7 +96,6 @@ const LocationSelector = () => {
       </select>
     </div>
   )
-
 }
 
 export default LocationSelector

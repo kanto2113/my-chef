@@ -2,8 +2,7 @@ import React, { useContext } from "react"
 import { ChefListContext } from "./pages/home"
 
 const ChefListFilter = () => {
-
-  const [ chefList, setChefList ] = useContext(ChefListContext)
+  const [chefList, setChefList] = useContext(ChefListContext)
 
   const priceLowToHigh = () => {
     let cloneChefList = [...chefList]
@@ -19,9 +18,23 @@ const ChefListFilter = () => {
 
   return (
     <select id="sorting">
-      <option id="sortBy" value="Sort By">Sort Chefs</option>
-      <option id="priceLowToHigh" value="Price: Low to High" onClick={priceLowToHigh}>Price: Low to High</option>
-      <option id="priceHightoLow" value="Price: High to Low" onClick={priceHighToLow}>Price: High to Low</option>
+      <option id="sortBy" value="Sort By">
+        Sort Chefs
+      </option>
+      <option
+        id="priceLowToHigh"
+        value="Price: Low to High"
+        onClick={priceLowToHigh}
+      >
+        Price: Low to High
+      </option>
+      <option
+        id="priceHightoLow"
+        value="Price: High to Low"
+        onClick={priceHighToLow}
+      >
+        Price: High to Low
+      </option>
     </select>
   )
 }

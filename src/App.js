@@ -8,22 +8,20 @@ import Home from "./components/pages/home"
 import Login from "./components/auth/login"
 import Register from "./components/auth/register-user"
 import About from "./components/pages/about"
-import ChefProfile from "./components/pages/chef-profile-page"
-import EditChefProfile from "./components/pages/edit-chef-profile-page"
+import ChefProfilePage from "./components/pages/chef-profile-page"
 
 import UserDataContext from "./context/UserDataContext"
 
 const App = () => {
-
-  const [ userData, setUserData ] = useState({
+  const [userData, setUserData] = useState({
     token: undefined,
     user: undefined,
   })
 
-  useEffect(()=>{
+  useEffect(() => {
     const checkLoggedIn = async () => {
       let token = localStorage.getItem("auth-token")
-      if(token === null) {
+      if (token === null) {
         localStorage.setItem("auth-token", "")
         token = ""
       }
@@ -32,14 +30,14 @@ const App = () => {
         null,
         { headers: { "x-auth-token": token } }
       )
-      if(tokenRes.data) {
+      if (tokenRes.data) {
         const userRes = await axios.get("http://localhost:5000/users/", {
-          headers: {"x-auth-token": token },
+          headers: { "x-auth-token": token },
         })
-      setUserData({
-        token,
-        user: userRes.data,
-      })
+        setUserData({
+          token,
+          user: userRes.data,
+        })
       }
     }
     checkLoggedIn()
@@ -62,13 +60,9 @@ const App = () => {
           <Route path="/about">
             <About />
           </Route>
-          <Route path="/chefProfile/:id" children={<ChefProfile />}>
-          </Route>
-          <Route path="/editChefProfile">
-            <EditChefProfile />
-          </Route>
+          <Route path="/chefProfile/:id" children={<ChefProfilePage />}></Route>
         </Switch>
-        </UserDataContext.Provider>
+      </UserDataContext.Provider>
     </BrowserRouter>
   )
 }

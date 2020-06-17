@@ -2,49 +2,53 @@ import React, { useState, useEffect, useContext } from "react"
 import axios from "axios"
 import { useParams } from "react-router-dom"
 
-import ChefServiceListContainer from "../chefServiceListContainer"
-import EditChefServiceListContainer from "../editChefServiceListContainer"
+import ServiceListContainer from "../serviceListContainer"
+import EditServiceListContainer from "../editServiceListContainer"
 import NewServiceCardContainer from "../newServiceCardContainer"
 import LocationSelector from "../locationSelector"
 
 import UserDataContext from "../../context/UserDataContext"
-export const ChefServiceContext = React.createContext()
-export const ChefProfileContext = React.createContext()
+export const ServiceContext = React.createContext()
+export const ProfileContext = React.createContext()
 export const NewServiceContext = React.createContext()
 
 const ChefProfilePage = () => {
-
-  const [ chefProfile, setChefProfile ] = useState()
-  const [ chefService, setChefService ] = useState([])
-  const [ newService, setNewService ] =  useState({})
+  const [profile, setProfile] = useState()
+  const [service, setService] = useState([])
+  const [newService, setNewService] = useState({})
   const { userData } = useContext(UserDataContext)
 
   const { id } = useParams()
 
   const isChef = userData.user?.id === id
 
-  useEffect(()=>{
+  useEffect(() => {
     let getChefProfile = async () => {
       const profileRes = await axios.get(`http://localhost:5000/profile/${id}`)
-      setChefProfile(profileRes.data)
-      setChefService([...profileRes.data.profile.services])
-      if(profileRes.data.profile.profilePicture === 'not set'){profileRes.data.profile.profilePicture = "https://t4.ftcdn.net/jpg/00/64/67/63/240_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"}
+      setProfile(profileRes.data)
+      setService([...profileRes.data.profile.services])
+      if (profileRes.data.profile.profilePicture === "not set") {
+        profileRes.data.profile.profilePicture =
+          "https://t4.ftcdn.net/jpg/00/64/67/63/240_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
+      }
     }
     getChefProfile()
-  },[])
+  }, [])
 
-  chefService.forEach((el) => {el.firstName = chefProfile.firstName})
+  service.forEach((el) => {
+    el.firstName = profile.firstName
+  })
 
-  console.log("chefProfile", chefProfile)
-
-  const chefProfileID = chefProfile?.profile._id
-
+  const chefProfileID = profile?.profile._id
 
   // edit chef profile input handlers
 
   const chefBioInputHandler = (e) => {
-    let cloneChefProfile = {...chefProfile, profile: {...chefProfile.profile, bio: e.target.value}}
-    setChefProfile(cloneChefProfile)
+    let cloneProfile = {
+      ...profile,
+      profile: { ...profile.profile, bio: e.target.value },
+    }
+    setProfile(cloneProfile)
   }
 
   // create new service
@@ -60,97 +64,128 @@ const ChefProfilePage = () => {
     setNewService(newServ)
   }
 
-
   // save new service
-  
+
   const saveNewServiceButtonHandler = async () => {
-    const savedServ = await axios.post("http://localhost:5000/services", newService)
+    const savedServ = await axios.post(
+      "http://localhost:5000/services",
+      newService
+    )
     let newServ = {
-      _id: savedServ.data._id
+      _id: savedServ.data._id,
     }
-    const updateProfile = await axios.post(`http://localhost:5000/profile/services/${chefProfileID}`, newServ)
-    let cloneChefService = chefService.concat(newService)
-    setChefService(cloneChefService)
+    const updateProfile = await axios.post(
+      `http://localhost:5000/profile/services/${chefProfileID}`,
+      newServ
+    )
+    let cloneService = service.concat(newService)
+    setService(cloneService)
     setNewService({})
   }
 
   return (
-    <ChefProfileContext.Provider value={[chefProfile, setChefProfile]}>
-    <ChefServiceContext.Provider value={[chefService, setChefService]}>
-
-      {isChef ? (
-      <> 
-        <div className="background">
-          <div className="chef-profile">
-            <div className="profile-header">
-              <div className="profile-header-text-container">
-                <div className="profile-name">
-                  {chefProfile?.firstName} {chefProfile?.lastName}
-                </div>
-                <LocationSelector></LocationSelector>
-                <div>
-                  <textarea defaultValue={chefProfile?.profile.bio} className="profile-bio-edit" maxLength="200" cols="50" rows="4" placeholder="Brief description of yourself and your skills." onChange={(e)=>{chefBioInputHandler(e)}}>
-                  </textarea>
+    <ProfileContext.Provider value={[profile, setProfile]}>
+      <ServiceContext.Provider value={[service, setService]}>
+        {isChef ? (
+          <>
+            <div className="background">
+              <div className="chef-profile">
+                <div className="profile-header">
+                  <div className="profile-header-text-container">
+                    <div className="profile-name">
+                      {profile?.firstName} {profile?.lastName}
+                    </div>
+                    <LocationSelector></LocationSelector>
+                    <div>
+                      <textarea
+                        defaultValue={profile?.profile.bio}
+                        className="profile-bio-edit"
+                        maxLength="200"
+                        cols="50"
+                        rows="4"
+                        placeholder="Brief description of yourself and your skills."
+                        onChange={(e) => {
+                          chefBioInputHandler(e)
+                        }}
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div>
+                    <img
+                      className="profile-chef-picture"
+                      src={profile?.profile.profilePicture}
+                      alt=""
+                    ></img>
+                  </div>
                 </div>
               </div>
-              <div>
-                <img className="profile-chef-picture" src={chefProfile?.profile.profilePicture} alt=""></img>
+              <div className="chef-profile-edit-tools">
+                <button className="edit-profile-button">Save Profile</button>
               </div>
-            </div>  
-          </div>
-          <div className="chef-profile-edit-tools">
-            <button className="edit-profile-button">Save Profile</button>
-          </div>
-          <div className="chef-services">
-            <EditChefServiceListContainer></EditChefServiceListContainer>
-          </div> 
-
-          {isNewServ ? (
-            <NewServiceContext.Provider value={{newService, setNewService}}>
               <div className="chef-services">
-                <NewServiceCardContainer></NewServiceCardContainer>
-              </div> 
-            </NewServiceContext.Provider>
-          ) : ( <> </> ) }
+                <EditServiceListContainer></EditServiceListContainer>
+              </div>
 
-          <div className="chef-service-edit-tools">
-            <button onClick={createNewServiceButtonHandler} className="edit-service-button">Create New Service</button>
-            <button onClick={saveNewServiceButtonHandler} className="edit-service-button">Save Service</button>
-          </div>
-        </div>
-      </>
+              {isNewServ ? (
+                <NewServiceContext.Provider
+                  value={{ newService, setNewService }}
+                >
+                  <div className="chef-services">
+                    <NewServiceCardContainer></NewServiceCardContainer>
+                  </div>
+                </NewServiceContext.Provider>
+              ) : (
+                <> </>
+              )}
 
-      ) : (
-
-      <> 
-        <div className="background">
-          <div className="chef-profile">
-            <div className="profile-header">
-              <div className="profile-header-text-container">
-                <div className="profile-name">
-                  {chefProfile?.firstName} {chefProfile?.lastName}
-                </div>
-                <div className="profile-location">
-                  {chefProfile?.profile.locationCity}, {chefProfile?.profile.locationState}
-                </div>
-                <div className="profile-bio">
-                  {chefProfile?.profile.bio}
+              <div className="chef-service-edit-tools">
+                <button
+                  onClick={createNewServiceButtonHandler}
+                  className="edit-service-button"
+                >
+                  Create New Service
+                </button>
+                <button
+                  onClick={saveNewServiceButtonHandler}
+                  className="edit-service-button"
+                >
+                  Save Service
+                </button>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="background">
+              <div className="chef-profile">
+                <div className="profile-header">
+                  <div className="profile-header-text-container">
+                    <div className="profile-name">
+                      {profile?.firstName} {profile?.lastName}
+                    </div>
+                    <div className="profile-location">
+                      {profile?.profile.locationCity},{" "}
+                      {profile?.profile.locationState}
+                    </div>
+                    <div className="profile-bio">{profile?.profile.bio}</div>
+                  </div>
+                  <div>
+                    <img
+                      className="profile-chef-picture"
+                      src={profile?.profile.profilePicture}
+                      alt=""
+                    ></img>
+                  </div>
                 </div>
               </div>
-              <div>
-                <img className="profile-chef-picture" src={chefProfile?.profile.profilePicture} alt=""></img>
+              <div className="chef-services">
+                <ServiceListContainer></ServiceListContainer>
               </div>
-            </div>  
-          </div>
-          <div className="chef-services">
-            <ChefServiceListContainer></ChefServiceListContainer>
-          </div> 
-        </div>
-      </>
-      )}
-
-    </ChefServiceContext.Provider>
-    </ChefProfileContext.Provider>
+            </div>
+          </>
+        )}
+      </ServiceContext.Provider>
+    </ProfileContext.Provider>
   )
 }
 

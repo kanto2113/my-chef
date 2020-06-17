@@ -7,7 +7,7 @@ const profileSchema = new Schema({
   locationState: String,
   bio: String,
   profilePicture: String,
-  services: [{ type: mongoose.Schema.Types.ObjectId, ref: 'service'}]
+  services: [{ type: mongoose.Schema.Types.ObjectId, ref: "service" }],
 })
 
-module.exports = mongoose.model("profile", profileSchema )
+module.exports = mongoose.model("profile", profileSchema)
