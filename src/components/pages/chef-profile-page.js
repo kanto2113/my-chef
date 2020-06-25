@@ -8,6 +8,7 @@ import NewServiceCardContainer from "../newServiceCardContainer"
 import LocationSelector from "../locationSelector"
 
 import UserDataContext from "../../context/UserDataContext"
+import Axios from "axios"
 export const ServiceContext = React.createContext()
 export const ProfileContext = React.createContext()
 export const NewServiceContext = React.createContext()
@@ -36,6 +37,7 @@ const ChefProfilePage = () => {
   }, [])
 
   service.forEach((el) => {
+    el.profileId = profile.profile._id
     el.firstName = profile.firstName
   })
 
@@ -49,6 +51,25 @@ const ChefProfilePage = () => {
       profile: { ...profile.profile, bio: e.target.value },
     }
     setProfile(cloneProfile)
+  }
+
+  // save and update database with bio
+
+  const saveBioButton = async () => {
+    let profileID = profile.profile._id
+    let update = {
+      bio: profile.profile.bio,
+      locationCity: profile.profile.locationCity,
+      locationState: profile.profile.locationState,
+      zipCode: profile.profile.zipCode,
+      lat: profile.profile.lat,
+      lng: profile.profile.lng,
+      profilePicture: profile.profile.profilePicture,
+    }
+    await Axios.patch(
+      `http://localhost:5000/profile/update/${profileID}`,
+      update
+    )
   }
 
   // create new service
@@ -74,7 +95,7 @@ const ChefProfilePage = () => {
     let newServ = {
       _id: savedServ.data._id,
     }
-    const updateProfile = await axios.post(
+    await axios.post(
       `http://localhost:5000/profile/services/${chefProfileID}`,
       newServ
     )
@@ -120,7 +141,9 @@ const ChefProfilePage = () => {
                 </div>
               </div>
               <div className="chef-profile-edit-tools">
-                <button className="edit-profile-button">Save Profile</button>
+                <button onClick={saveBioButton} className="edit-profile-button">
+                  Save Profile
+                </button>
               </div>
               <div className="chef-services">
                 <EditServiceListContainer></EditServiceListContainer>

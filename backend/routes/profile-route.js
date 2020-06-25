@@ -10,6 +10,7 @@ router.post("/", async (req, res) => {
     let {
       locationCity,
       locationState,
+      zipCode,
       bio,
       profilePicture,
       services,
@@ -18,6 +19,7 @@ router.post("/", async (req, res) => {
     const Profile = new Profile({
       locationCity,
       locationState,
+      zipCode,
       bio,
       profilePicture,
       services,
@@ -62,44 +64,33 @@ router.post("/services/:id", async (req, res) => {
   }
 })
 
-// update Profile.services by removing old service
+// update Profile
 
-// router.post("/service_remove/:id", async (req, res) => {
-//   try {
-//     let profileRes = await Profile.findByIdAndUpdate(req.params.id).updateOne({
-//       $pull: { services: req.params.id },
-//     })
-//     res.send(profileRes)
-//   } catch (err) {
-//     console.log("err", err)
-//     res.status(500).json({ error: err.message })
-//   }
-// })
-
-router.patch('/service_update/:id', async (req, res) => {
+router.patch("/update/:id", async (req, res) => {
   try {
-    await Profile.findByIdAndUpdate(req.params.id, req.body)
-    await Profile.save()
-    res.send(Profile)
+    let id = req.params.id
+    let updates = req.body
+    const result = await Profile.findByIdAndUpdate(id, updates)
+    res.send(result)
   } catch (err) {
-    res.status(500).send(err)
+    res.status(500).json({ error: err.message })
   }
 })
 
+// update Profile.services by removing old service
+
+router.post("/service_remove/:id", async (req, res) => {
+  try {
+    let id = req.params.id
+    let updates = mongoose.Types.ObjectId(req.body.id)
+    let profileRes = await Profile.findByIdAndUpdate(id, {
+      $pull: { services: updates },
+    })
+    res.send(profileRes)
+  } catch (err) {
+    console.log("err", err)
+    res.status(500).json({ error: err.message })
+  }
+})
 
 module.exports = router
-
-// update Profile._author with profile id
-//
-// router.post("/update/", async (req, res) => {
-//   try{
-//     let profile = {_author: mongoose.Types.ObjectId(req.body.profile._author)}
-//     User.findByIdAndUpdate(mongoose.Types.ObjectId(req.body._id), {profile})
-//     .then((result)=>{
-//       res.send(result.data)
-//     })
-//   } catch (err) {
-//     console.log('err', err)
-//     res.status(500).json({ error: err.message })
-//   }
-// })

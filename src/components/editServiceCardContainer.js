@@ -6,52 +6,40 @@ const EditServiceCardContainer = (props) => {
   const [service, setService] = useContext(ServiceContext)
 
   const deleteServiceButton = async () => {
+    console.log("currentService", props.service)
     let cloneService = service.filter((service) => {
       return service._id !== props.service._id
     })
-    let serviceRes = await Axios.delete(
-      `http://localhost:5000/services/delete/${props.service._id}`
+    let deletedService = props.service._id
+    let updatedProfile = props.service.profileId
+    await Axios.delete(
+      `http://localhost:5000/services/delete/${deletedService}`
+    )
+    await Axios.post(
+      `http://localhost:5000/profile/service_remove/${updatedProfile}`,
+      {
+        id: deletedService,
+      }
     )
     setService(cloneService)
-
-    // let profileRes = await Axios.post(`http://localhost:5000/profile/service_update/${deletedService}`)
   }
 
   return (
     <div className="service-container">
-      <div className="service-header">
-        <div className="service-delete">
+      <div className="edit-service-header">
+        <div className="edit-service-delete">
           <button onClick={deleteServiceButton}>X</button>
         </div>
-        <div className="service-title">
-          <input
-            defaultValue={props.service.title}
-            placeholder="Name of Service"
-            className="service-title-input"
-          ></input>
-        </div>
+        <div className="edit-service-title">{props.service.title}</div>
       </div>
-      <div>
-        <textarea
-          defaultValue={props.service.description}
-          className="service-description-textarea"
-          maxLength="200"
-          cols="40"
-          rows="5"
-          placeholder="A breif description of the service."
-        ></textarea>
-      </div>
+      <div className="service-description">{props.service.description}</div>
       <div className="service-footer">
         <div className="service-footer">
-          <div className="service-cost">
-            $
-            <input
-              defaultValue={props.service.cost}
-              className="service-cost-input"
-              placeholder="0"
-            ></input>
-          </div>
+          <div className="service-cost">${props.service.cost}</div>
           <div>&nbsp;per meal.</div>
+        </div>
+        <div className="service-purchase-button">
+          <button>Hire {props.service.firstName}</button>
         </div>
       </div>
     </div>

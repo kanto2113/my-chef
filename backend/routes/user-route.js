@@ -50,6 +50,7 @@ router.post("/register", async (req, res) => {
     const newProfile = new Profile({
       locationCity: "not set",
       locationState: "not set",
+      zipCode: "0",
       bio: "not set",
       profilePicture:
         "https://t4.ftcdn.net/jpg/00/64/67/63/240_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg",
@@ -162,7 +163,7 @@ router.route("/cards").get((req, res) => {
     .select({ firstName: 1, lastName: 1 })
     .populate({
       path: "profile",
-      select: "bio profilePicture -_id",
+      select: "bio zipCode profilePicture lat lng -_id",
       populate: {
         path: "services",
         model: "service",

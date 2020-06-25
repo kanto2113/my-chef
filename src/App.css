@@ -238,6 +238,8 @@ a:hover {
 .chef-card-name {
   font-weight: 600;
   padding: 4px;
+  padding-top: 25px;
+  padding-right: 10px;
   text-align: center;
 }
 
@@ -250,7 +252,7 @@ a:hover {
 
 .chef-card-bio {
   padding: 20px 4px 0 4px;
-  text-align: center;
+  text-align: left;
   display: flex;
   font-weight: 300;
 }
@@ -259,6 +261,7 @@ a:hover {
   text-align: center;
   position: absolute;
   bottom: 0px;
+  padding: 4px;
 }
 
 /* Registration Forms */
@@ -419,18 +422,10 @@ a:hover {
   border: 1px black solid;
 }
 
-.service-header {
-  display: flex;
-}
-
-.service-delete {
-  position: relative;
-  left: 0px;
-}
-
 .service-title {
   right: 0px;
-  margin-left: 40px;
+  font-weight: 600;
+  text-align: center;
 }
 
 .service-title-input {
@@ -459,6 +454,23 @@ a:hover {
 .service-footer {
   display: flex;
   justify-content: space-between;
+}
+
+/* Service Edit */
+
+.edit-service-header {
+  display: flex;
+}
+
+.edit-service-delete {
+  position: relative;
+  left: 0px;
+}
+
+.edit-service-title {
+  right: 0px;
+  font-weight: 600;
+  padding-left: 140px;
 }
 
 /* Service List */

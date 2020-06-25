@@ -9,6 +9,7 @@ import Login from "./components/auth/login"
 import Register from "./components/auth/register-user"
 import About from "./components/pages/about"
 import ChefProfilePage from "./components/pages/chef-profile-page"
+import Service from "./components/pages/service"
 
 import UserDataContext from "./context/UserDataContext"
 
@@ -59,6 +60,9 @@ const App = () => {
           </Route>
           <Route path="/about">
             <About />
+          </Route>
+          <Route path="/service">
+            <Service />
           </Route>
           <Route path="/chefProfile/:id" children={<ChefProfilePage />}></Route>
         </Switch>

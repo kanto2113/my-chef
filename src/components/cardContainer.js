@@ -2,6 +2,7 @@ import React from "react"
 
 const ChefCardContainer = (props) => {
   const viewProfile = () => {
+    console.log(props.chef)
     window.location = `/chefprofile/${props.chef._id}`
   }
 

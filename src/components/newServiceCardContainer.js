@@ -5,7 +5,7 @@ const NewServiceCardContainer = () => {
   const { newService, setNewService } = useContext(NewServiceContext)
 
   const deleteServiceButton = () => {
-    setNewService({}) 
+    setNewService({})
   }
 
   const serviceTitleInputHandler = (e) => {
@@ -68,9 +68,6 @@ const NewServiceCardContainer = () => {
               ></input>
             </div>
             <div>&nbsp;per meal.</div>
-          </div>
-          <div className="service-purchase-button">
-            <button>Done</button>
           </div>
         </div>
       </div>
