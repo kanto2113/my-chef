@@ -1,40 +1,70 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import ChefListContainer from "../chefListContainer"
 import ChefListFilter from "../chefListFitler"
 import axios from "axios"
+import UserDataContext from "../../context/UserDataContext"
+var geodist = require('geodist')
 
 export const ChefListContext = React.createContext()
 
 const Home = () => {
+  const [chefList, setChefList] = useState([])
+  const {userData} = useContext(UserDataContext)
 
-    const [ chefList, setChefList ] = useState([])
+  useEffect(() => {
+    const getUserCards = async () => {
+      const userCards = await axios.get("http://localhost:5000/users/cards")
+      let cards = userCards.data
+      cards.forEach((element) => { 
+        if(element.profile.services.length === 0){
+          let deletedCards = cards.indexOf(element)
+          cards.splice(deletedCards)
+        }})
+      setChefList(cards)
+    }
+    getUserCards()
+  }, [])
 
-    useEffect(()=>{
-        const getUserCards = async () => {
-            const userCards = await axios.get("http://localhost:5000/users/cards")
-            setChefList(userCards.data)
-        }
-        getUserCards()
-    },[])
+  console.log('chefList', chefList)
+  console.log('userData', userData)
 
-    console.log('chefList', chefList)
+  const getDistance = () => {
+    let dist = geodist({lat: userData.user?.profile.lat, lon: userData.user?.profile.lng},{lat: chefList[1]?.profile.lat, lon: chefList[1]?.profile.lng})
+    console.log('dist', dist)
+  }
 
-    return (
-        <ChefListContext.Provider value={[chefList, setChefList]}>
-            <div className="banner-text">
-                <div className="banner-image">
-                </div>
-                <br></br>
-                Find a local chef to do your grocery shopping and bring you pre-made meals.
-            </div>
-            <div>
-                <ChefListFilter></ChefListFilter>
-            </div>
-            <div>
-                <ChefListContainer></ChefListContainer>
-            </div>
-        </ChefListContext.Provider>
-    )
+  return (
+    <ChefListContext.Provider value={[chefList, setChefList]}>
+      <div className="banner-text">
+        <div className="banner-image"></div>
+        <br></br>
+        Find a local chef to do your grocery shopping and bring you pre-made
+        meals.
+      </div>
+      <div>
+        <ChefListFilter></ChefListFilter>
+      </div>
+      <div>
+        <button onClick={getDistance}>
+          GPS
+        </button>
+      </div>
+      <div>
+        <ChefListContainer></ChefListContainer>
+      </div>
+    </ChefListContext.Provider>
+  )
 }
 
 export default Home
+
+
+// else{
+//   let dist = geodist(
+//     {lat: userData.user?.profile.lat, lon: userData.user?.profile.lng},
+//     {lat: element.profile.lat, lon: element.profile.lng})
+//   if(dist >= 10){
+//     let farAwayCards = cards.indexOf(element)
+//     cards.splice(farAwayCards)
+//   }
+// }

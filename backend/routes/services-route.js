@@ -4,8 +4,8 @@ let Service = require("../models/service-model")
 // create new service
 
 router.post("/", async (req, res) => {
-  try{
-    let { title, description, cost } = req.body 
+  try {
+    let { title, description, cost } = req.body
 
     const newService = new Service({
       title,
@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
     })
     const savedService = await newService.save()
     res.json(savedService)
-  }catch (err) {
+  } catch (err) {
     res.status(500).json({ error: err.message })
   }
 })
@@ -22,13 +22,12 @@ router.post("/", async (req, res) => {
 // delete service and update profile.services array
 
 router.delete("/delete/:id", async (req, res) => {
-  try{
+  try {
     const deletedService = await Service.findByIdAndDelete(req.params.id)
     res.send(deletedService)
-  }catch (err) {
+  } catch (err) {
     res.status(500).json({ error: err.message })
   }
 })
-
 
 module.exports = router

@@ -7,23 +7,23 @@ import Navbar from "./components/navbar"
 import Home from "./components/pages/home"
 import Login from "./components/auth/login"
 import Register from "./components/auth/register-user"
+import RegisterChef from "./components/auth/register-chef"
 import About from "./components/pages/about"
-import ChefProfile from "./components/pages/chef-profile-page"
-import EditChefProfile from "./components/pages/edit-chef-profile-page"
+import Profile from "./components/pages/profile"
+import Service from "./components/pages/service"
 
 import UserDataContext from "./context/UserDataContext"
 
 const App = () => {
-
-  const [ userData, setUserData ] = useState({
+  const [userData, setUserData] = useState({
     token: undefined,
     user: undefined,
   })
-
-  useEffect(()=>{
+  
+  useEffect(() => {
     const checkLoggedIn = async () => {
       let token = localStorage.getItem("auth-token")
-      if(token === null) {
+      if (token === null) {
         localStorage.setItem("auth-token", "")
         token = ""
       }
@@ -32,14 +32,15 @@ const App = () => {
         null,
         { headers: { "x-auth-token": token } }
       )
-      if(tokenRes.data) {
+      if (tokenRes.data) {
         const userRes = await axios.get("http://localhost:5000/users/", {
-          headers: {"x-auth-token": token },
+          headers: { "x-auth-token": token },
         })
-      setUserData({
-        token,
-        user: userRes.data,
-      })
+        console.log('userRes.data', userRes.data)
+        setUserData({
+          token,
+          user: userRes.data
+        })
       }
     }
     checkLoggedIn()
@@ -59,16 +60,18 @@ const App = () => {
           <Route path="/register">
             <Register />
           </Route>
+          <Route path="/register_chef">
+            <RegisterChef />
+          </Route>
           <Route path="/about">
             <About />
           </Route>
-          <Route path="/chefProfile/:id" children={<ChefProfile />}>
+          <Route path="/service">
+            <Service />
           </Route>
-          <Route path="/editChefProfile">
-            <EditChefProfile />
-          </Route>
+          <Route path="/profile/:id" children={<Profile />}></Route>
         </Switch>
-        </UserDataContext.Provider>
+      </UserDataContext.Provider>
     </BrowserRouter>
   )
 }
