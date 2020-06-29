@@ -1,5 +1,9 @@
 import React, { useState, useContext, useEffect } from "react"
+<<<<<<< HEAD
 import { ProfileContext } from "./pages/profile"
+=======
+import { ProfileContext } from "./pages/chef-profile-page"
+>>>>>>> 1f70ff5e820940883d2e5f2fa37e771bf53f63a5
 
 const LocationSelector = () => {
   const [details, setDetails] = useState(null)

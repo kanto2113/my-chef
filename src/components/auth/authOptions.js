@@ -17,7 +17,11 @@ const AuthOptions = () => {
       {userData.user ? (
         <>
           <li className="item nav-button">
+<<<<<<< HEAD
             <a href={"/profile/" + userData.user?.id}>Profile</a>
+=======
+            <a href={"/chefProfile/" + userData.user?.id}>Profile</a>
+>>>>>>> 1f70ff5e820940883d2e5f2fa37e771bf53f63a5
           </li>
           <li onClick={logout} className="item nav-button">
             <a href="/logout">Log Out</a>

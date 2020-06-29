@@ -9,11 +9,15 @@ export const ChefListContext = React.createContext()
 
 const Home = () => {
   const [chefList, setChefList] = useState([])
+<<<<<<< HEAD
   const {userData} = useContext(UserDataContext)
+=======
+>>>>>>> 1f70ff5e820940883d2e5f2fa37e771bf53f63a5
 
   useEffect(() => {
     const getUserCards = async () => {
       const userCards = await axios.get("http://localhost:5000/users/cards")
+<<<<<<< HEAD
       let cards = userCards.data
       cards.forEach((element) => { 
         if(element.profile.services.length === 0){
@@ -21,10 +25,14 @@ const Home = () => {
           cards.splice(deletedCards)
         }})
       setChefList(cards)
+=======
+      setChefList(userCards.data)
+>>>>>>> 1f70ff5e820940883d2e5f2fa37e771bf53f63a5
     }
     getUserCards()
   }, [])
 
+<<<<<<< HEAD
   console.log('chefList', chefList)
   console.log('userData', userData)
 
@@ -33,6 +41,8 @@ const Home = () => {
     console.log('dist', dist)
   }
 
+=======
+>>>>>>> 1f70ff5e820940883d2e5f2fa37e771bf53f63a5
   return (
     <ChefListContext.Provider value={[chefList, setChefList]}>
       <div className="banner-text">
@@ -45,11 +55,14 @@ const Home = () => {
         <ChefListFilter></ChefListFilter>
       </div>
       <div>
+<<<<<<< HEAD
         <button onClick={getDistance}>
           GPS
         </button>
       </div>
       <div>
+=======
+>>>>>>> 1f70ff5e820940883d2e5f2fa37e771bf53f63a5
         <ChefListContainer></ChefListContainer>
       </div>
     </ChefListContext.Provider>
@@ -57,6 +70,7 @@ const Home = () => {
 }
 
 export default Home
+<<<<<<< HEAD
 
 
 // else{
@@ -68,3 +82,5 @@ export default Home
 //     cards.splice(farAwayCards)
 //   }
 // }
+=======
+>>>>>>> 1f70ff5e820940883d2e5f2fa37e771bf53f63a5

@@ -7,9 +7,15 @@ let User = require("../models/user-model")
 let Profile = require("../models/profile-model")
 let Service = require("../models/service-model")
 
+<<<<<<< HEAD
 // register new chef
 
 router.post("/register_chef", async (req, res) => {
+=======
+// register new user
+
+router.post("/register", async (req, res) => {
+>>>>>>> 1f70ff5e820940883d2e5f2fa37e771bf53f63a5
   try {
     let { firstName, lastName, email, password, passwordCheck } = req.body
 
@@ -58,6 +64,7 @@ router.post("/register_chef", async (req, res) => {
     })
 
     try {
+<<<<<<< HEAD
       await newProfile.save()
     } catch (err) {
       console.log(err)
@@ -120,6 +127,8 @@ router.post("/register", async (req, res) => {
     })
 
     try {
+=======
+>>>>>>> 1f70ff5e820940883d2e5f2fa37e771bf53f63a5
       await newProfile.save()
     } catch (err) {
       console.log(err)
@@ -140,7 +149,6 @@ router.post("/register", async (req, res) => {
     res.status(500).json({ error: err.message })
   }
 })
-
 
 // login to existing account
 
@@ -208,6 +216,7 @@ router.post("/tokenIsValid", async (req, res) => {
 
 // get user
 
+<<<<<<< HEAD
 router.get("/", auth, (req, res) => {
   User.findById(req.user)
     .select({ firstName: 1, lastName: 1 })
@@ -217,6 +226,15 @@ router.get("/", auth, (req, res) => {
     })
     .then((user)=> res.json(user))
     .catch((err)=> res.status(400).json("Error:" + err))
+=======
+router.get("/", auth, async (req, res) => {
+  const user = await User.findById(req.user)
+  res.json({
+    firstName: user.firstName,
+    lastName: user.lastName,
+    id: user._id,
+  })
+>>>>>>> 1f70ff5e820940883d2e5f2fa37e771bf53f63a5
 })
 
 

@@ -4,6 +4,7 @@ const CardContainer = (props) => {
   const viewProfile = () => {
     console.log(props.chef)
     window.location = `/profile/${props.chef._id}`
+
   }
 
   return (

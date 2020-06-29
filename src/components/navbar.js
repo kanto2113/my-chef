@@ -3,7 +3,18 @@ import AuthOptions from "./auth/authOptions"
 import UserDataContext from "../context/UserDataContext"
 
 const Navbar = () => {
+  const hamburgerIconHandler = () => {
+    let menuItems = Array.from(document.getElementsByClassName("item"))
+    menuItems.forEach((e) => {
+      if (Array.from(e.classList).includes("active")) {
+        e.classList.remove("active")
+      } else {
+        e.classList.add("active")
+      }
+    })
+  }
 
+<<<<<<< HEAD
   const { userData } = useContext(UserDataContext)
 
   const hamburgerIconHandler = () => {
@@ -17,6 +28,8 @@ const Navbar = () => {
     })
   }
 
+=======
+>>>>>>> 1f70ff5e820940883d2e5f2fa37e771bf53f63a5
   return (
     <nav>
       <ul className="menu">
@@ -28,6 +41,7 @@ const Navbar = () => {
         <li className="logo">
           <a href="/">HiredKnife</a>
         </li>
+<<<<<<< HEAD
         {userData.user ? (
           <>
           </>
@@ -39,6 +53,11 @@ const Navbar = () => {
           </>
           ) 
         }
+=======
+        <li className="item">
+          <a href="/">Home</a>
+        </li>
+>>>>>>> 1f70ff5e820940883d2e5f2fa37e771bf53f63a5
         <li className="item">
           <AuthOptions></AuthOptions>
         </li>

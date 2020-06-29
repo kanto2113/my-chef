@@ -1,5 +1,9 @@
 import React, { useContext } from "react"
+<<<<<<< HEAD
 import { ServiceContext } from "./pages/profile"
+=======
+import { ServiceContext } from "./pages/chef-profile-page"
+>>>>>>> 1f70ff5e820940883d2e5f2fa37e771bf53f63a5
 import Axios from "axios"
 
 const EditServiceCardContainer = (props) => {
