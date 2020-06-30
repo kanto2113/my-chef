@@ -1,12 +1,7 @@
 import React from "react"
 
 const Legal = () => {
-
-    return (
-        <div>
-            Terms of Service
-        </div>
-    )
+  return <div>Terms of Service</div>
 }
 
 export default Legal

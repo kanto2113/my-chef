@@ -7,16 +7,78 @@ let User = require("../models/user-model")
 let Profile = require("../models/profile-model")
 let Service = require("../models/service-model")
 
-
 // register new user
 
-router.post("/register", async (req, res) => {
+router.post("/register_user", async (req, res) => {
   try {
     let { firstName, lastName, email, password, passwordCheck } = req.body
 
     // validate
 
-    if (!firstName || !lastName || !email || !password || !passwordCheck )
+    if (!firstName || !lastName || !email || !password || !passwordCheck)
+      return res.status(400).json({ msg: "Not all fields have been entered." })
+    if (password.length < 5)
+      return res.status(400).json({
+        msg: "The password needs to be atleast 5 characters long.",
+      })
+    if (password !== passwordCheck)
+      return res.status(400).json({
+        msg: "Enter the same password twice for verification.",
+      })
+
+    const existingUser = await User.findOne({ email: email })
+    if (existingUser)
+      return res
+        .status(400)
+        .json({ msg: "Account with this email already exists" })
+
+    // encrypt password
+
+    const salt = await bcrypt.genSalt(10)
+    const passwordHash = await bcrypt.hash(password, salt)
+
+    // create user account
+
+    const newProfile = new Profile({
+      locationCity: "not set",
+      locationState: "not set",
+      zipCode: "0",
+      bio: "not set",
+      profilePicture:
+        "https://t4.ftcdn.net/jpg/00/64/67/63/240_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg",
+    })
+
+    try {
+      await newProfile.save()
+    } catch (err) {
+      console.log(err)
+    }
+
+    const newUser = new User({
+      firstName,
+      lastName,
+      email,
+      password: passwordHash,
+      profile: newProfile._id,
+    })
+
+    const savedUser = await newUser.save()
+    console.log("savedUser", savedUser)
+    res.send(savedUser)
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+})
+
+// register new chef
+
+router.post("/register_chef", async (req, res) => {
+  try {
+    let { firstName, lastName, email, password, passwordCheck } = req.body
+
+    // validate
+
+    if (!firstName || !lastName || !email || !password || !passwordCheck)
       return res.status(400).json({ msg: "Not all fields have been entered." })
     if (password.length < 5)
       return res.status(400).json({
@@ -41,35 +103,39 @@ router.post("/register", async (req, res) => {
     // create user account
 
     const newService = new Service({
-      title: 'not set',
-      description: 'not set',
+      title: "not set",
+      description: "not set",
       cost: 0,
     })
     await newService.save()
 
     const newServ = mongoose.Types.ObjectId(newService._id)
     const newProfile = new Profile({
-      locationCity: 'not set',
-      locationState: 'not set',
-      bio: 'not set',
-      profilePicture: 'https://t4.ftcdn.net/jpg/00/64/67/63/240_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg',
+      locationCity: "not set",
+      locationState: "not set",
+      zipCode: "0",
+      bio: "not set",
+      profilePicture:
+        "https://t4.ftcdn.net/jpg/00/64/67/63/240_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg",
       services: [newServ],
     })
 
-    try{
+    try {
       await newProfile.save()
-    }catch(err){console.log(err)}
+    } catch (err) {
+      console.log(err)
+    }
 
     const newUser = new User({
       firstName,
       lastName,
       email,
       password: passwordHash,
-      profile: newProfile._id
+      profile: newProfile._id,
     })
 
     const savedUser = await newUser.save()
-    console.log('savedUser', savedUser)
+    console.log("savedUser", savedUser)
     res.send(savedUser)
   } catch (err) {
     res.status(500).json({ error: err.message })
@@ -103,14 +169,13 @@ router.post("/login", async (req, res) => {
       user: {
         id: user._id,
         firstName: user.firstName,
-        lastName: user.lastName
+        lastName: user.lastName,
       },
     })
   } catch (err) {
     res.status(500).json({ error: err.message })
   }
 })
-
 
 // delete user account
 
@@ -122,7 +187,6 @@ router.delete("/delete", auth, async (req, res) => {
     res.status(500).json({ error: err.message })
   }
 })
-
 
 // verify web token
 
@@ -143,15 +207,14 @@ router.post("/tokenIsValid", async (req, res) => {
   }
 })
 
-
 // get user
 
 router.get("/", auth, async (req, res) => {
   const user = await User.findById(req.user)
   res.json({
-      firstName: user.firstName,
-      lastName: user.lastName,
-      id: user._id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    id: user._id,
   })
 })
 
@@ -159,20 +222,20 @@ router.get("/", auth, async (req, res) => {
 
 // services cost need to be filtered to one number of lowest cost
 
-router.route('/cards').get((req, res) => {
+router.route("/cards").get((req, res) => {
   User.find()
-    .select({firstName:1, lastName:1 })
+    .select({ firstName: 1, lastName: 1 })
     .populate({
-      path:"profile",
-      select: "bio profilePicture -_id",
+      path: "profile",
+      select: "bio zipCode profilePicture lat lng -_id",
       populate: {
-        path:"services",
+        path: "services",
         model: "service",
-        select: "cost -_id",
-      }
+        select: "title cost -_id",
+      },
     })
-    .then(userCard => res.json(userCard))
-    .catch(err => res.status(400).json('Error: '+ err))
+    .then((userCard) => res.json(userCard))
+    .catch((err) => res.status(400).json("Error: " + err))
 })
 
 module.exports = router

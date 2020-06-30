@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react"
 import axios from "axios"
 import UserDataContext from "../../context/UserDataContext"
 
-const RegisterUser = () => {
+const RegisterChef = () => {
   const [newUser, setNewUser] = useState({
     firstName: "",
     lastName: "",
@@ -52,7 +52,7 @@ const RegisterUser = () => {
     }
 
     axios
-      .post("http://localhost:5000/users/register_user", newUserCreds)
+      .post("http://localhost:5000/users/register_chef", newUserCreds)
       .then((res) => {
         const newUserLogin = {
           email: res.data.email,
@@ -92,7 +92,7 @@ const RegisterUser = () => {
 
   return (
     <div className="register-form-parent">
-      <div className="register-title">User Account Creation</div>
+      <div className="register-title">Chef Account Creation</div>
       <div>
         <input
           className="register-input"
@@ -158,4 +158,32 @@ const RegisterUser = () => {
   )
 }
 
-export default RegisterUser
+export default RegisterChef
+
+// const newUserProfilePictureInputHandler = async () => {
+//   const formData = new FormData()
+//   formData.append("image", inputRef.current.files[0])
+
+//   for (var pair of formData.entries()) {
+//     console.log("formData", pair[1])
+//   }
+
+//   let pictureResponse = await axios.post(
+//     "http://localhost:5000/api/User-profile-picture",
+//     formData
+//   )
+
+//   console.log("picture response", pictureResponse)
+
+//   let cloneNewUser = {...newUser, profilePicture: inputRef.current.files[0]}
+//   setNewUser(cloneNewUser)
+
+// <div>
+//   <input
+//     ref={inputRef}
+//     type="file"
+//     accept="image/*"
+//     onChange={newUserProfilePictureInputHandler}
+//     placeholder="Profile Picture URL"
+//   />
+// </div>

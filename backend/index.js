@@ -24,6 +24,7 @@ mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
+    useFindAndModify: false,
 }, (err) => {
     if (err) throw err
     console.log("MongoDB connection established.")
@@ -56,4 +57,14 @@ AWS.config.getCredentials(function(err) {
     console.log("aws-s3 Access key:", AWS.config.credentials.accessKeyId)
     console.log("aws-s3 Secret access key:", AWS.config.credentials.secretAccessKey)
   }
+})
+
+// set up cors
+
+app.get('https://geolocation-db.com/json/0f761a30-fe14-11e9-b59f-e53803842572', cors(), function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for a Single Route'})
+})
+ 
+app.listen(80, function () {
+  console.log('CORS-enabled web server listening on port 80')
 })
