@@ -26,7 +26,6 @@ const Home = () => {
     getUserCards()
   }, [])
 
-  console.log('chefList', chefList)
 
   return (
     <ChefListContext.Provider value={[chefList, setChefList]}>
@@ -40,6 +39,8 @@ const Home = () => {
         <ChefListFilter></ChefListFilter>
       </div>
       <div>
+      </div>
+      <div>
         <ChefListContainer></ChefListContainer>
       </div>
     </ChefListContext.Provider>
@@ -47,3 +48,18 @@ const Home = () => {
 }
 
 export default Home
+
+// else{
+//   let dist = geodist(
+//     {lat: userData.user?.profile.lat, lon: userData.user?.profile.lng},
+//     {lat: element.profile.lat, lon: element.profile.lng})
+//   if(dist >= 10){
+//     let farAwayCards = cards.indexOf(element)
+//     cards.splice(farAwayCards)
+//   }
+// }
+
+  // const getDistance = () => {
+  //   let dist = geodist({lat: userData.user?.profile.lat, lon: userData.user?.profile.lng},{lat: chefList[1]?.profile.lat, lon: chefList[1]?.profile.lng})
+  //   console.log('dist', dist)
+  // }

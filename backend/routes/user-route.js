@@ -100,7 +100,7 @@ router.post("/register_chef", async (req, res) => {
     const salt = await bcrypt.genSalt(10)
     const passwordHash = await bcrypt.hash(password, salt)
 
-    // create user account
+    // create services and profile for new chef user
 
     const newService = new Service({
       title: "not set",
@@ -135,13 +135,11 @@ router.post("/register_chef", async (req, res) => {
     })
 
     const savedUser = await newUser.save()
-    console.log("savedUser", savedUser)
     res.send(savedUser)
   } catch (err) {
     res.status(500).json({ error: err.message })
   }
 })
-
 
 // login to existing account
 
@@ -209,17 +207,19 @@ router.post("/tokenIsValid", async (req, res) => {
 
 // get user
 
-router.get("/", auth, async (req, res) => {
-  const user = await User.findById(req.user)
-  res.json({
-    firstName: user.firstName,
-    lastName: user.lastName,
-    id: user._id,
-  })
+router.get("/", auth, (req, res) => {
+  User.findById(req.user)
+    .select({ firstName: 1, lastName: 1 })
+    .populate({
+      path: "profile",
+      select: "lat lng -_id"
+    })
+    .then((user)=> res.json(user))
+    .catch((err)=> res.status(400).json("Error:" + err))
 })
 
-// get all users for cards
 
+// get all users for cards
 // services cost need to be filtered to one number of lowest cost
 
 router.route("/cards").get((req, res) => {
@@ -231,7 +231,7 @@ router.route("/cards").get((req, res) => {
       populate: {
         path: "services",
         model: "service",
-        select: "title cost -_id",
+        select: "cost -_id",
       },
     })
     .then((userCard) => res.json(userCard))
@@ -239,3 +239,5 @@ router.route("/cards").get((req, res) => {
 })
 
 module.exports = router
+
+

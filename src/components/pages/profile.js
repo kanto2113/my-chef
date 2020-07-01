@@ -21,7 +21,11 @@ const Profile = () => {
 
   const { id } = useParams()
 
-  const isChef = userData.user?.id === id
+  const isChef = userData.user?._id === id
+
+  console.log('userData.user.id', userData.user?._id)
+  console.log('isChef', isChef)
+  console.log('id', id)
 
   useEffect(() => {
     let getChefProfile = async () => {

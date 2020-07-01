@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import ChefCardContainer from "./chefCardContainer"
+import CardContainer from "./cardContainer"
 import { ChefListContext } from "./pages/home"
 
 const ChefListContainer = () => {
@@ -8,7 +8,7 @@ const ChefListContainer = () => {
   return (
     <div className="list-container">
       {chefList?.map((chef) => {
-        return <ChefCardContainer key={chef._id} chef={chef} />
+        return <CardContainer key={chef._id} chef={chef} />
       })}
     </div>
   )

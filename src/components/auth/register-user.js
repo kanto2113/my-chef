@@ -159,3 +159,31 @@ const RegisterUser = () => {
 }
 
 export default RegisterUser
+
+// const newUserProfilePictureInputHandler = async () => {
+//   const formData = new FormData()
+//   formData.append("image", inputRef.current.files[0])
+
+//   for (var pair of formData.entries()) {
+//     console.log("formData", pair[1])
+//   }
+
+//   let pictureResponse = await axios.post(
+//     "http://localhost:5000/api/User-profile-picture",
+//     formData
+//   )
+
+//   console.log("picture response", pictureResponse)
+
+//   let cloneNewUser = {...newUser, profilePicture: inputRef.current.files[0]}
+//   setNewUser(cloneNewUser)
+
+// <div>
+//   <input
+//     ref={inputRef}
+//     type="file"
+//     accept="image/*"
+//     onChange={newUserProfilePictureInputHandler}
+//     placeholder="Profile Picture URL"
+//   />
+// </div>
