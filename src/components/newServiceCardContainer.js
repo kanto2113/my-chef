@@ -4,6 +4,8 @@ import { NewServiceContext } from "./pages/profile"
 const NewServiceCardContainer = () => {
   const { newService, setNewService } = useContext(NewServiceContext)
 
+  console.log('newService', newService)
+
   const deleteServiceButton = () => {
     setNewService({})
   }
@@ -18,9 +20,22 @@ const NewServiceCardContainer = () => {
     setNewService(cloneNewService)
   }
 
-  const serviceCostInputHandler = (e) => {
-    let cloneNewService = { ...newService, cost: e.target.value }
-    setNewService(cloneNewService)
+  const mealCheckboxHandler = () => {
+    if(document.getElementById("meal").checked){
+      let cloneNewService = {...newService, serviceType: "meal"}
+      setNewService(cloneNewService)
+      document.getElementById("grocery").checked = false
+    }else{}
+  }
+  
+
+  const groceryCheckboxHandler = () => {
+    if(document.getElementById("grocery").checked){
+      let cloneNewService = {...newService, serviceType: "grocery"}
+      setNewService(cloneNewService)
+      document.getElementById("meal").checked = false
+    }else{
+    }
   }
 
   return (
@@ -55,20 +70,12 @@ const NewServiceCardContainer = () => {
           ></textarea>
         </div>
         <div className="service-footer">
-          <div className="service-footer">
-            <div className="service-cost">
-              $
-              <input
-                onChange={(e) => {
-                  serviceCostInputHandler(e)
-                }}
-                value={newService.cost}
-                className="service-cost-input"
-                placeholder="0"
-              ></input>
+            <div>
+              Prepared Food <input onChange={mealCheckboxHandler} type="checkbox" id="meal"></input> 
             </div>
-            <div>&nbsp;per meal.</div>
-          </div>
+            <div>
+              Grocery Service <input onChange={groceryCheckboxHandler} type="checkbox" id="grocery"></input>
+            </div>
         </div>
       </div>
     </div>

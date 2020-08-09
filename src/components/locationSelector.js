@@ -41,7 +41,7 @@ const LocationSelector = () => {
     Http.open("GET", bigdatacloud_api)
     Http.send()
     Http.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
+      if (this.readyState === 4 && this.status === 200) {
         let myObj = JSON.parse(this.responseText)
         console.log("response", myObj)
         let cloneProfile = {

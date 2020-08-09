@@ -5,7 +5,8 @@ const Schema = mongoose.Schema
 const serviceSchema = new Schema({
   title: { type: String },
   description: { type: String },
-  cost: { type: Number },
+  serviceType: { type: String },
+  meals: []
 })
 
 module.exports = mongoose.model("service", serviceSchema)

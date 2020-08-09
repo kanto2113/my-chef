@@ -5,12 +5,12 @@ let Service = require("../models/service-model")
 
 router.post("/", async (req, res) => {
   try {
-    let { title, description, cost } = req.body
+    let { title, description, serviceType } = req.body
 
     const newService = new Service({
       title,
       description,
-      cost,
+      serviceType,
     })
     const savedService = await newService.save()
     res.json(savedService)
@@ -29,5 +29,14 @@ router.delete("/delete/:id", async (req, res) => {
     res.status(500).json({ error: err.message })
   }
 })
+
+// get service
+
+router.get("/:id", (req, res) => {
+  Service.findById(req.params.id)
+    .then((service)=> res.json(service))
+    .catch((err)=> res.status(400).json("Error:" + err))
+})
+
 
 module.exports = router

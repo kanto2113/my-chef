@@ -1,8 +1,7 @@
 import React from "react"
 
-const CardContainer = (props) => {
+const ChefCardContainer = (props) => {
   const viewProfile = () => {
-    console.log(props.chef)
     window.location = `/profile/${props.chef._id}`
   }
 
@@ -26,4 +25,4 @@ const CardContainer = (props) => {
   )
 }
 
-export default CardContainer
+export default ChefCardContainer

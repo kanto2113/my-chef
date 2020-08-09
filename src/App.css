@@ -460,6 +460,7 @@ a:hover {
 
 .edit-service-header {
   display: flex;
+  justify-content: space-between;
 }
 
 .edit-service-delete {
@@ -470,7 +471,6 @@ a:hover {
 .edit-service-title {
   right: 0px;
   font-weight: 600;
-  padding-left: 140px;
 }
 
 /* Service List */
@@ -480,4 +480,32 @@ a:hover {
   flex-wrap: wrap;
   justify-content: space-evenly;
   padding: 5px;
+}
+
+/* Service Details */
+
+.service-details-container {
+  width: 1200px;
+  height: 600px;
+  margin: 10px;
+  padding: 10px;
+  background: white;
+  border: 1px black solid;
+}
+
+.service-details-title {
+  text-align: center;
+  font-weight: 600;
+  height: 90px
+}
+
+.service-details-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 490px;
+}
+
+.service-details-description {
+  width: 600px;
 }

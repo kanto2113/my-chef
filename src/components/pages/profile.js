@@ -23,10 +23,6 @@ const Profile = () => {
 
   const isChef = userData.user?._id === id
 
-  console.log('userData.user.id', userData.user?._id)
-  console.log('isChef', isChef)
-  console.log('id', id)
-
   useEffect(() => {
     let getChefProfile = async () => {
       const profileRes = await axios.get(`http://localhost:5000/profile/${id}`)
@@ -84,7 +80,7 @@ const Profile = () => {
     let newServ = {
       title: "",
       description: "",
-      cost: 0,
+      serviceType: ""
     }
     setNewService(newServ)
   }

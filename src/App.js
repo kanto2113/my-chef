@@ -10,7 +10,9 @@ import RegisterChef from "./components/auth/register-chef"
 import RegisterUser from "./components/auth/register-user"
 import About from "./components/pages/about"
 import Profile from "./components/pages/profile"
-import Service from "./components/pages/service"
+import ServiceDetails from "./components/serviceDetails"
+import EditServiceDetails from "./components/editServiceDetails"
+
 
 import UserDataContext from "./context/UserDataContext"
 
@@ -36,8 +38,6 @@ const App = () => {
         const userRes = await axios.get("http://localhost:5000/users/", {
           headers: { "x-auth-token": token },
         })
-        console.log('userRes.data', userRes.data)
-        console.log('token', token)
         setUserData({
           token,
           user: userRes.data
@@ -46,7 +46,8 @@ const App = () => {
     }
     checkLoggedIn()
   }, [])
-  console.log('userData', userData)
+  
+
   return (
     <BrowserRouter>
       <UserDataContext.Provider value={{ userData, setUserData }}>
@@ -67,10 +68,11 @@ const App = () => {
           <Route path="/about">
             <About />
           </Route>
-          <Route path="/service">
-            <Service />
+          <Route path="/edit_service">
+            <EditServiceDetails />
           </Route>
           <Route path="/profile/:id" children={<Profile />}></Route>
+          <Route path="/service/:id" children={<ServiceDetails />}></Route>
         </Switch>
       </UserDataContext.Provider>
     </BrowserRouter>
